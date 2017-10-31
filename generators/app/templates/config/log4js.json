@@ -1,0 +1,23 @@
+{
+  "levels": {
+    "[all]": "DEBUG"
+  },
+  "appenders": [
+    {
+      "type": "console",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%[%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m%]"
+      }
+    }
+    //        {
+    //          "type": "dateFile",
+    //          "filename": "log/app.log", //DEV
+    //          "filename": "/var/log/nodejs/appli/appli-$instance", //PROD
+    //          "layout": {
+    //            "type": "pattern",
+    //            "pattern": "%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m"
+    //          }
+    //        }
+  ]
+}

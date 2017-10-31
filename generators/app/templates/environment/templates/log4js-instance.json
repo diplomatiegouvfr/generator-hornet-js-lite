@@ -1,0 +1,16 @@
+{
+   "levels":{
+      "[all]":"INFO"
+   },
+   "appenders":[
+      {
+         "type":"hornet-js-utils/src/dateFileSyncAppender",
+         "pattern":".yyyy-MM-dd",
+         "filename":"/var/log/nodejs/#{INSTANCE_NAME}/#{INSTANCE_NAME}.log",
+         "layout":{
+            "type":"pattern",
+            "pattern":"%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%m"
+         }
+      }
+   ]
+}

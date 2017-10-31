@@ -1,0 +1,97 @@
+{
+  "contextPath": "#{APPLICATION_CONTEXT_ROOT}",
+  "localeI18n": {
+    "locale": "fr-FR",
+    "lang": "fr"
+  },
+  "cookie": {
+    "httpOnly": true,
+    "secure": false
+  },
+  "security": {
+    "enabled": true,
+    "csp": {
+      "enabled": true,
+      "connectSrc": [
+        "'self'"
+      ],
+      "scriptSrc": [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'"
+      ],
+      "styleSrc":[
+        "'self'",
+        "'unsafe-inline'"
+      ],
+      "fontSrc":[
+        "'self'"
+      ],
+      "imgSrc":[
+        "'self'"
+      ],
+      "formAction": [
+        "'self'"
+      ]
+    },
+      "reportOnly": false
+  },
+  "logClient": {
+    "remote": false,
+    "level": "INFO",
+    "appenders": [
+      {
+        "type": "BrowserConsole",
+        "layout": {
+          "type": "THIN"
+        }
+      }
+    ]
+  },
+  "database": {
+    "config": {
+      "uri": "#{DATABASE_URI}",
+      "options" : {
+        "pool" : {
+          "max" : 5,
+          "min" : 0,
+          "idle" : 1000
+        },
+        "define": {
+          "timestamps" : false
+        },
+        "omitNull" : false
+      }
+    }
+  },
+  "antivirus" : {
+    "host" : "#{ANTIVIRUS_HOST}",
+    "port" : #{ANTIVIRUS_PORT},
+  },
+  "mail": {
+    "config": {
+      "host": "#{MAIL_HOST}",
+      "port": #{MAIL_PORT},
+      "secure": #{MAIL_SECURE},
+      "connectionTimeout": #{MAIL_TIMEOUT},
+      "tls": {
+        "rejectUnauthorized": #{MAIL_TLS_REJECT}
+      },
+      "auth": {
+        "user": "#{MAIL_USER}",
+        "pass": "#{MAIL_PASS}"
+      }
+    },
+    "mailReceiver": "#{MAIL_RECEIVER}",
+    "mailSender": "#{MAIL_SENDER}"
+  },
+  "mock": {
+    "enabled": false
+  },
+  "fullSpa": {
+    "enabled": false
+  },
+  "cache": {
+    "enabled": false
+  }
+}

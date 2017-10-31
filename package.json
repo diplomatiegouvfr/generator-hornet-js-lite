@@ -1,0 +1,16 @@
+{
+  "name": "generator-hornet-js-lite",
+  "version": "5.1.0",
+  "description": "Générateur de projet d'application web Hornet JS Lite",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "MEAE - Ministère de l'Europe et des Affaires étrangères",
+  "license": "CECILL v2",
+  "dependencies": {
+    "lodash.isstring": "4.0.1",
+    "slugify": "1.0.2",
+    "yeoman-generator": "1.0.1",
+    "yosay": "1.2.1"
+  }
+}

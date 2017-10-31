@@ -1,0 +1,46 @@
+{
+  "name": "<%= slugify(appname) %>",
+  "version": "<%= appversion %>",
+  "main": "index.js",
+  "description": "<%= appdescription %>",
+  "tsDefinitionDependencies": {
+    "hornet-js-ts-typings": "<%= fmkversion %>",
+    "hornet-js-utils-dts": "<%= fmkversion %>",
+    "hornet-js-database-dts": "<%= fmkversion %>",
+    "hornet-js-bean-dts": "<%= fmkversion %>",
+    "hornet-js-core-dts": "<%= fmkversion %>",
+    "hornet-js-components-dts": "<%= fmkversion %>",
+    "hornet-js-react-components-dts": "<%= fmkversion %>",
+    "hornet-js-passport-dts": "<%= fmkversion %>",
+    "hornet-js-test-dts": "<%= fmkversion %>"
+  },
+  "appDependencies": {
+    "<%= theme %>": "<%= themeversion %>",
+    "hornet-js-components": "<%= fmkversion %>",
+    "hornet-js-react-components": "<%= fmkversion %>",
+    "hornet-js-database": "<%= fmkversion %>",
+    "hornet-js-bean": "<%= fmkversion %>",
+    "hornet-js-core": "<%= fmkversion %>",
+    "hornet-js-utils": "<%= fmkversion %>",
+    "hornet-js-passport": "<%= fmkversion %>",
+    "connect-flash": "0.1.1",
+    "passport": "0.2.1",
+    "passport-local": "1.0.0",
+    "sha1": "1.1.1",
+    "chart.js": "2.6.0",
+    "pg": "6.0.1",
+    "pg-hstore": "2.3.2",
+    "pg-native": "1.10.0",
+    "sqlite3": "3.1.8"
+  },
+  "buildDependencies": {
+  },
+  "testDependencies": {
+    "hornet-js-test": "<%= fmkversion %>"
+  },
+  "scripts": {
+    "init-dev": "hb install",
+    "start": "node index.js"
+  },
+  "author": "MEAE - Ministère de l'Europe et des Affaires étrangères"
+}

@@ -1,0 +1,36 @@
+{
+  "dispatcher": {
+    "stores": {
+      "PageInformationStore": {
+        "currentUser": {
+          "name": "admin",
+          "roles": [
+            {
+              "id": 1,
+              "name": "<%= slugify(appname) %>_ADMIN"
+            },
+            {
+              "id": 2,
+              "name": "<%= slugify(appname) %>_USER"
+            }
+          ]
+        }
+      },
+      "NavigationBaseStore": {
+        "menuItems": []
+      }
+    }
+  },
+  "contextPath": "<%= slugify(appname) %>-spa",
+  "fullSpa": {
+    "enabled": true,
+    "host": "http://localhost/",
+    "name": "<%= slugify(appname) %>-service"
+  },
+  "services": {
+    "host": "http://localhost/",
+    "name": "<%= slugify(appname) %>-service"
+  },
+  "themeUrl": "<%= themeurl %>",
+  "locale": "fr-FR"
+}
