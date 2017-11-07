@@ -74,7 +74,7 @@ module.exports = Generator.extend({
             type: "input",
             name: "theme",
             message: "Theme de l'application",
-            default: "hornet-themes-intranet"
+            default: "hornet-themes"
         });
         prompts.push({
             when: function () {
