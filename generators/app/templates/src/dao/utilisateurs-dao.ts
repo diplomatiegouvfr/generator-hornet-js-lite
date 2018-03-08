@@ -2,7 +2,7 @@ import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
 import { EntityDAO } from "src/dao/entity-dao";
 import Map from "hornet-js-bean/src/decorators/Map";
-import {UtilisateurMetier} from "src/models/user-mod";
+import { UtilisateurMetier } from "src/models/user-mod";
 
 const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.src.dao.utilisateurs-dao");
 

@@ -1,19 +1,16 @@
-/// <reference path="src.d.ts" />
-import Sequelize = require("sequelize");
-
+import { Utils } from "hornet-js-utils";
+import { Logger } from "hornet-js-utils/src/logger";
 import { UtilisateurAttributes, UtilisateurModel } from "src/models/seq-user-mod";
 import { RoleAttributes, RoleModel } from "src/models/model-role";
 import { RoleUtilisateurAttributes, RoleUtilisateurModel } from "src/models/model-role_utilisateur";
 import { Entity } from "hornet-js-database/src/decorators/dec-seq-entity";
-import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
 import { SequelizeUtils } from "hornet-js-database/src/sequelize/sequelize-utils";
 import { injectable, Scope, Side } from "hornet-js-core/src/inject/injectable";
 import { HornetSequelizeModel } from "hornet-js-database/src/sequelize/hornet-sequelize-model";
 import { inject } from "hornet-js-core/src/inject/inject";
 import { HornetSequelizeInstanceModel } from "hornet-js-database/src/sequelize/hornet-sequelize-attributes";
 
-const logger : Logger= Utils.getLogger("<%= slugify(appname) %>.src.dao.model-dao");
+const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.src.dao.model-dao");
 
 @injectable(ModelDAO, Scope.SINGLETON, Side.SERVER)
 export class ModelDAO extends HornetSequelizeModel {
@@ -27,17 +24,19 @@ export class ModelDAO extends HornetSequelizeModel {
     @Entity("role_utilisateur", RoleUtilisateurModel)
     public roleUtilisateurEntity: HornetSequelizeInstanceModel<RoleUtilisateurAttributes>;
 
-    constructor(@inject("config")conf?: string) {
+    constructor(@inject("databaseConfigName")conf?: string) {
         super(conf);
         this.initUtilisateurEntity();
         this.initRoleEntity();
+
     }
 
+    /** METHODS */
     private initUtilisateurEntity(): void {
-        SequelizeUtils.initRelationBelongsToMany(this.utilisateurEntity, this.roleEntity, "listeRole", "id_utilisateur", "role_utilisateur");
+        SequelizeUtils.initRelationBelongsToMany({fromEntity: this.utilisateurEntity, toEntity: this.roleEntity, alias: "listeRole", foreignKey: "id_utilisateur", throughTable: "role_utilisateur"});
     }
 
     private initRoleEntity(): void {
-        SequelizeUtils.initRelationBelongsToMany(this.roleEntity, this.utilisateurEntity, "listeUser", "id_role", "role_utilisateur");
+        SequelizeUtils.initRelationBelongsToMany({fromEntity: this.roleEntity, toEntity: this.utilisateurEntity, alias: "listeUser", foreignKey: "id_role", throughTable: "role_utilisateur"});
     }
 }

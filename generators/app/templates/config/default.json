@@ -17,7 +17,12 @@
     "uploadAntivirus": false,
     "sessionTimeout": 1800000,
     "stackTraceLimit": 100,
-    "bodyParserLimit": "50mb"
+    "bodyParserLimit": "50mb",
+    "rethrow": false,
+    "notifications": {
+      "sessionTimeoutDelay": 30000,
+      "notifSessionTimeoutRepeat": 5000
+    }
     /*
     "https": {
       "cert": "/config/cert/cert.pem",
@@ -53,7 +58,6 @@
     }
   },
   */
-
   "cookie": {
     "httpOnly": true,
     "secure": true
@@ -62,7 +66,7 @@
   "security": {
     "enabled": true,
     "hpp": true,
-    "ienoopen": true,
+    "ieNoOpen": true,
     "noSniff": true,
     "csp": {
       "enabled": true,
@@ -123,9 +127,9 @@
   },
   "logClient": {
     "remote": false,
-    "level": "TRACE",
-    "appenders": [
-      {
+    "level": "INFO",
+    "appenders": {
+      "BrowserConsole": {
         "type": "BrowserConsole",
         //        "layout": {
         //          "type": "pattern",
@@ -135,7 +139,7 @@
           "type": "THIN"
         }
       },
-      {
+      "Ajax": {
         "type": "Ajax",
         "layout": {
           "type": "BASIC"
@@ -144,7 +148,7 @@
         "timeout": 3000,
         "url": "/log"
       }
-    ]
+    }
   },
   "database": {
     "config": {
@@ -152,6 +156,7 @@
       "username": "test",
       "password": "test",
       "options": {
+        "operatorsAliases": false,
         "dialect": "sqlite",
         "storage": "./database/database.sqlite",
         "pool": {
@@ -167,8 +172,9 @@
       "reload": true
     },
     "configPostgres": {
-      "uri": "postgres://hornetjs@localhost:5433/applitutorielDB",
+      "uri": "postgres://hornetjs@localhost:5433/<%= slugify(appname) %>DB",
       "options": {
+        "operatorsAliases": false,
         "pool": {
           "max": 5,
           "min": 0,
@@ -194,15 +200,17 @@
       "connectionTimeout": 20000,
       "tls": {
         "rejectUnauthorized": false
-      },
-      "auth": {
-        "user": "user",
-        "pass": "pass"
       }
     }
   },
   "mock": {
-    "enabled": false
+    "enabled": false,
+    "servicePage": {
+      "enabled": false
+    },
+    "serviceData": {
+      "enabled": false
+    }
   },
   "fullSpa": {
     "enabled": false,
@@ -219,7 +227,7 @@
     //        "hostUrlReturnTo": "http://localhost:8889",
     //        "callbackUrl": "/login",
     //        "logoutCallbackUrl": "/logout",
-    //        "issuer": "http://localhost:8889/applitutoriel",
+    //        "issuer": "http://localhost:8889/<%= slugify(appname) %>",
     //        "idp": [
     //          {
     //            "name": "idp",
@@ -229,8 +237,20 @@
     //        ]
     //      }
   },
-  "cache": {
-    "enabled": true,
-    "timetolive": 60
+  "request": {
+    "cache": {
+      "client": {
+        "enabled": false,
+        "timetolive": 60
+      },
+      "server": {
+        "enabled": false,
+        "timetolive": 120
+      }
+    },
+    "timeout": {
+      "response": 10000,
+      "deadline": 60000
+    }
   }
 }

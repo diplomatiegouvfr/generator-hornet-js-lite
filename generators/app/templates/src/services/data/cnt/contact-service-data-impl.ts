@@ -6,7 +6,7 @@ import { ContactService } from "src/services/page/cnt/contact-service-page";
 import { Template } from "hornet-js-utils/src/template";
 import { HornetComponent } from "hornet-js-react-components/src/widget/component/hornet-component";
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.services.gen.contact-service-data-impl");
+const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.services.data.cnt.contact-service-data-impl");
 
 /**
  * Implementation des services pour les contacts
@@ -21,7 +21,7 @@ export class ContactServiceImpl extends ServiceRequest implements ContactService
      * @param {object} data message à envoyer
      */
     envoyer(data: any): Promise<any> {
-        logger.info("SERVICES - send : ", data);
+        logger.trace("SERVICES - send : ", data);
 
         let valuesToWriteIntoMessage = {
             name: data.nom,

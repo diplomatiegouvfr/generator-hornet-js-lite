@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
 import { HornetComponentProps } from "hornet-js-components/src/component/ihornet-component";

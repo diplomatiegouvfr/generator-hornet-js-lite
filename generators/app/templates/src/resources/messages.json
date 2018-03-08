@@ -30,7 +30,8 @@
     "autoCompleteField": {
       "title": "Aide à la saisie d'un champ d'auto-completion",
       "toolTip": "Commencez la saisie et des propositions vous seront faites. Vous pouvez naviguer dans ces propositions à partir des flèches du clavier",
-      "selectedItem": "{count, plural, =0 {aucun item sélectionné } =1 {1 item sélectionné} other {# items sélectionnés}}"
+      "selectedItem": "{count, plural, =0 {aucun item sélectionné } =1 {1 item sélectionné} other {# items sélectionnés}}",
+      "noResultLabel": "pas de résultat."
     },
     "validation": {
       "generic": "La valeur du champ « {field} » est incorrecte.",
@@ -55,8 +56,13 @@
       "switch": "La valeur du champ « {field} » est incorrecte."
     }
   },
+  "textarea": {
+    "alertMessage": "Le nombre de caractère renseigné est trop élevé par rapport au nombre maximum ({count}/{maxChar}).",
+    "alertTitle": "Nombre de caractères trop élevé",
+    "charLabel": "{count, plural, =1 {1 caractère} other {# caractères}}"
+  },
   "uploadFile": {
-    "selectedFile": "{count} fichier sélectionné",
+    "selectedFile": "{count, plural, =0 {aucun fichier sélectionné } =1 {1 fichier sélectionné} other {# items fichiers sélectionnés}}",
     "buttonLabel": "Choisir un fichier",
     "labelSupprimer": "Supprimer"
   },

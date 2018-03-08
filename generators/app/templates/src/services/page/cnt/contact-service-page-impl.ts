@@ -1,8 +1,8 @@
 import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
+import { ServicePage } from "hornet-js-core/src/services/service-page";
 import { URL_CONTACT } from "src/utils/urls";
 import { ContactService } from "src/services/page/cnt/contact-service-page";
-import { ServicePage } from "hornet-js-core/src/services/service-page";
 
 
 const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.services.page.cnt.contact-service-page-impl");
@@ -20,7 +20,7 @@ export class ContactServiceImpl extends ServicePage implements ContactService {
      * @param {object} data message à envoyer
      */
     envoyer(data: any): Promise<any> {
-        logger.info("SERVICES - send : ", data);
+        logger.trace("SERVICES - send : ", data);
 
         return this.fetch({
             method: "post",

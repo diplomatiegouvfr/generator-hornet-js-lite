@@ -202,7 +202,7 @@
     "title": "Changer la langue"
   },
   "header": {
-    "logoTitle": "Hornet - Retour vers la page d'accueil",
+    "logoTitle": "<%= appname %> - Retour vers la page d'accueil",
     "contentTitle": "Aller au contenu de l'",
     "menuTitle": "Aller au menu de l'",
     "planTitle": "Plan de l'",

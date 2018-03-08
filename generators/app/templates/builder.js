@@ -1,7 +1,7 @@
 const path = require("path");
 module.exports = {
     type: "application",
-    authorizedPrerelease: "true",
+    authorizedPrerelease: "false",
 
     gulpTasks: function (gulp, project, conf, helper) {
         //Add task if needed
@@ -48,7 +48,7 @@ module.exports = {
     },
     config: {
         routesDirs: ["." + path.sep + "routes"],
-
+        ressources: ["database/**/*"],
         // Exemple d'exclusion de fichiers/répertoires local à l'application et de modules
         // Cet exemple n'est pas forcement cohérent puisque le client.js n'est pas dépendant des middlewares
         // Il est là à titre d'exemple uniquement
@@ -57,7 +57,8 @@ module.exports = {
                 path.join("src", "services", "data"),
                 path.join("src", "dao"),
                 "src/middleware",
-                "nodemailer"],
+                "nodemailer"
+            ],
             filters: [
                 path.join("src", "services", "data") + "/.*-data-\.*"
             ],
@@ -74,22 +75,39 @@ module.exports = {
             ]
         },
         clientContext: [
-            [/moment[\/\\]locale$/, /fr|en/],
+            [/moment[\/\\]locale$/, /fr/],
+            [/intl[\/\\]locale-data[\/\\]jsonp$/, /fr/],
             [/.appender/, /console/]
         ],
         typescript: { //bin: "~/Dev/node-v4.5.0-linux-x64/lib/node_modules/typescript"
         },
-        template: [
-            {
-                context: [{error: "404", suffixe: "_404", message: "Oops! Nous ne trouvons pas ce que vous cherchez!"}, {error: "500", suffixe: "_500", message: "Oops! Une erreur est survenue!"}],
-                dir: "./template/error",
-                dest: "/error"
+        template: [{
+            context: [{
+                error: "404",
+                suffixe: "_404",
+                message: "Oops! Nous ne trouvons pas ce que vous cherchez!"
             }, {
-                context: {message: "test template"}
+                error: "500",
+                suffixe: "_500",
+                message: "Oops! Une erreur est survenue!"
+            },
+                {
+                    error: "403",
+                    suffixe: "_403",
+                    message: "Oops! Accès interdit!"
+                }
+            ],
+            dir: "./template/error",
+            dest: "/error"
+        }, {
+            context: {
+                message: "test template"
             }
-        ],
+        }],
         dev: {
-            dllEntry: {vendor: ["ajv", "d3", "react-dom", "react", "bluebird", "moment", "intl", "moment-timezone", "lodash"]}
+            dllEntry: {
+                vendor: ["hornet-js-react-components", "hornet-js-components", "hornet-js-utils", "hornet-js-core", "hornet-js-bean"]
+            }
         }
     }
 

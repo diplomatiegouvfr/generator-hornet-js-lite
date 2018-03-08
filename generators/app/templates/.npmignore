@@ -1,7 +1,0 @@
-test
-istanbul
-.gitignore
-.svn
-*.txt
-node_modules
-target

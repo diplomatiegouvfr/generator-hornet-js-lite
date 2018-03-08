@@ -1,26 +1,4 @@
 {
-  "dispatcher": {
-    "stores": {
-      "PageInformationStore": {
-        "currentUser": {
-          "name": "admin",
-          "roles": [
-            {
-              "id": 1,
-              "name": "<%= slugify(appname) %>_ADMIN"
-            },
-            {
-              "id": 2,
-              "name": "<%= slugify(appname) %>_USER"
-            }
-          ]
-        }
-      },
-      "NavigationBaseStore": {
-        "menuItems": []
-      }
-    }
-  },
   "contextPath": "<%= slugify(appname) %>-spa",
   "fullSpa": {
     "enabled": true,
@@ -31,6 +9,39 @@
     "host": "http://localhost/",
     "name": "<%= slugify(appname) %>-service"
   },
-  "themeUrl": "<%= themeurl %>",
-  "locale": "fr-FR"
+  "themeName": "<%= theme %>",
+  "localeI18n": {
+    "locale": "fr-FR",
+    "lang": "fr"
+  },
+  "mock": {
+    "enabled": true,
+    "servicePage" : {
+      "enabled": true
+    },
+    "serviceData" : {
+      "enabled": true
+    }
+  },
+  "logClient": {
+    "remote": false,
+    "level": "DEBUG",
+    "appenders": {
+      "BrowserConsole": {
+        "type": "BrowserConsole",
+        "layout": {
+          "type": "THIN"
+        }
+      },
+      "Ajax": {
+        "type": "Ajax",
+        "layout": {
+          "type": "BASIC"
+        },
+        "threshold": 100,
+        "timeout": 3000,
+        "url": "/log"
+      }
+    }
+  }
 }

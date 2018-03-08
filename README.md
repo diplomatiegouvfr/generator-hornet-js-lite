@@ -6,7 +6,7 @@ Le module Node « generator-hornet-js-lite » contient les éléments de créati
 
 ## Pré-requis
 
-* NodeJS 6.X
+* NodeJS 8.X
 * hornet-js-builder >1.5.X installé en global:
 
 ```shell
@@ -54,9 +54,9 @@ Le générateur va vous demander plusieurs informations nécessaires à l'initia
 * ` Titre de l'application ` : le titre de l'application apparaît dans le bandeau de tête et le titre des pages de l'application.
 * ` Description de votre projet ` : un texte court présentant succintement le projet.
 * ` Version de votre projet:` `(1.0.0)` : version du projet (`1.0.0` par défaut).
-* ` Version du framework (hornet-js):` `(5.1.0)` : version du framework hornet-js (`5.1.0` par défaut identique à generator-hornet-js).
-* ` Thème de l'application` : hornet-themes par défaut 
-* ` Version du thème de l'application` `(5.1.0)`: par défaut la version de la dernière release
+* ` Version du framework (hornet-js):` `(5.0.0)` : version du framework hornet-js (`5.0.0` par défaut identique à generator-hornet-js).
+* ` Url du thème: (intranet) ` : l'url du thème à utiliser pour l'application (`http://localhost:7777/5.0.0/intranet` par défaut)
+* ` URL de base des services de l'application: ` : URL où sont accessibles les services (partie Java Tomcat) de votre application.
 * ` Nom/contexte des services de l'application ` : nom de l'application fournissant les services (partie Java Tomcat) de votre application.
 * ` Version des services de l'application:` `(1.0.0)` : version de l'application fournissant les services (partie Java Tomcat) de votre application. Par défaut le numéro de version est le même que celui donné au début de cette procédure.
 

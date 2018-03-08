@@ -1,3 +1,4 @@
+import * as React from "react";
 import { HornetPage } from "hornet-js-react-components/src/widget/component/hornet-page";
 import { HornetComponentProps } from "hornet-js-components/src/component/ihornet-component";
 import { Utils } from "hornet-js-utils";
@@ -23,8 +24,8 @@ export class AccessibilitePage extends HornetPage<any, HornetComponentProps, any
             <div>
                 <h2>Politique d'accessibilité</h2>
 
-                <div className="pure-g-r">
-                    <div className="pure-u-3-4">
+                <div>
+                    <div>
 
                         <p className="texte">Cette application Web a été développée en respectant les critères du
                             <abbr title="Référentiel Général d'Accessibilité pour les Administrations"> RGAA </abbr>
@@ -36,7 +37,7 @@ export class AccessibilitePage extends HornetPage<any, HornetComponentProps, any
                             numéro 2005-102 du 11 février 2005.
                         </p>
 
-                        <a name="definition" id="definition" href="#"></a>
+                        <a id="definition" href="#"></a>
                         <div>
                             <h3>Qu'est-ce-que l'accessibilité numérique ? </h3>
                             <div>
@@ -63,7 +64,7 @@ export class AccessibilitePage extends HornetPage<any, HornetComponentProps, any
                             </div>
                         </div>
 
-                        <a name="aide" id="aide" href="#"></a>
+                        <a id="aide" href="#"></a>
                         <div>
                             <h3>Dispositifs facilitant l'accessibilité
                             </h3>
@@ -209,7 +210,7 @@ export class AccessibilitePage extends HornetPage<any, HornetComponentProps, any
                                 </ul>
 
 
-                                <a name="onglet" id="onglet" href="#"></a>
+                                <a id="onglet" href="#"></a>
                                 <h5>Onglets
                                 </h5>
                                 <p className="texte">

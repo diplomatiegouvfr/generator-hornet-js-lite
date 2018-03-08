@@ -1,16 +1,18 @@
-// En tout premier: transpileur jsx -> js
-import {DataRenderingMiddleware} from "hornet-js-core/src/middleware/middlewares";
-
 // L'import de hornet-js-utils doit être fait le plus tôt possible
 import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
 import * as fs from "fs";
-import { I18nLoader } from "hornet-js-core/src/i18n/i18n-loader"
+import { AppliI18nLoader } from "src/i18n/app-i18n-loader";
 import { ServerConfiguration } from "hornet-js-core/src/server-conf";
 import * as HornetServer from "hornet-js-core/src/server";
 import { HornetApp } from "src/views/layouts/hornet-app";
 import { HornetLayout } from "src/views/layouts/hornet-layout";
 import { ErrorPage } from "hornet-js-react-components/src/widget/component/error-page";
+
+
+
+// import { AuthenticationAPIMiddleware } from "src/middleware/authentication-api";
+
 import { Routes } from "src/routes/routes";
 import {
     PageRenderingMiddleware,
@@ -18,8 +20,8 @@ import {
 } from "hornet-js-react-components/src/middleware/component-middleware";
 import * as HornetMiddlewares from "hornet-js-core/src/middleware/middlewares";
 import { HornetMiddlewareList } from "hornet-js-core/src/middleware/middlewares";
-import {AuthenticationAPIMiddleware} from "src/middleware/authentication-api";
 import * as DataBaseMiddlewares from "hornet-js-database/src/middleware/middleware";
+
 // Authent passport
 import { PassportAuthentication } from "hornet-js-passport/src/passport-authentication";
 import { AuthenticationtConfiguration } from "hornet-js-passport/src/authentication-configuration";
@@ -31,13 +33,28 @@ import { Database } from "hornet-js-database/src/sequelize/database";
 import { Injector } from "hornet-js-core/src/inject/injector";
 
 import * as Menu from "src/resources/navigation.json";
+// Mise en place des injections de service
+const logger: Logger = Utils.getLogger("<%= slugify(theme) %>.server");
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.server");
+async function initContext() {
+    await import("src/injector-context-services-data");
+    await import("src/injector-context-services-page");
+    return await import("src/middleware/authentication-api");
+}
+
+let AuthenticationAPIMiddleware;
+
+/*
+let AuthenticationAPIMiddleware;
+initContext().then(
+    (AuthenticationAPI)=> {
+        AuthenticationAPIMiddleware = AuthenticationAPI
+    });
+*/
 
 export class Server {
 
     static configure(): ServerConfiguration {
-
         let configServer: ServerConfiguration = {
             serverDir: __dirname,
             staticPath: "../static",
@@ -46,11 +63,11 @@ export class Server {
             errorComponent: ErrorPage,
             defaultRoutesClass: new Routes(),
             sessionStore: null, // new RedisStore({host: "localhost",port: 6379,db: 2,pass: "RedisPASS"}),
-            routesLoaderPaths: ["src/routes/"],
+            routesLoaderPaths: [ "src/routes/" ],
             /*Directement un flux JSON >>internationalization:require("./i18n/messages-fr-FR.json"),*/
             /*Sans utiliser le système clé/valeur>> internationalization:null,*/
-            internationalization: new I18nLoader(),
-            menuConfig: (<any> Menu).menu,
+            internationalization: new AppliI18nLoader(),
+            menuConfig: (<any>Menu).menu,
             loginUrl: Utils.config.get("authentication.loginUrl"),
             logoutUrl: Utils.config.get("authentication.logoutUrl"),
             welcomePageUrl: Utils.config.get("welcomePage"),
@@ -108,27 +125,39 @@ export class Server {
     }
 
     static startApplication() {
-        if (process.env.NODE_ENV !== "production") {
-            let files;
-            let databaseConfName = Injector.getRegistered("config");
-            if (databaseConfName === "config") {
-                files = ["database/01_createTablesSqlite.sql", "database/02_initDataSqlite.sql"];
-            } else if (databaseConfName === "configPostgres") {
-                files = ["database/01_createTablesPostgres.sql", "database/02_initDataPostgres.sql"];
+
+        initContext().then((AuthenticationAPI) => {
+
+            if (process.env.NODE_ENV !== "production" &&
+                !Utils.config.getOrDefault("mock.enabled", false) &&
+                !Utils.config.getOrDefault("mock.serviceData.enabled", false)) {
+                let files;
+                let databaseConfName = Injector.getRegistered("databaseConfigName");
+                if (databaseConfName === "config") {
+                    files = [ "database/01_createTablesSqlite.sql", "database/02_initDataSqlite.sql" ];
+                } else if (databaseConfName === "configPostgres") {
+                    files = [ "database/01_createTablesPostgres.sql", "database/02_initDataPostgres.sql" ];
+                }
+
+                Database.runScripts([ {
+                    configName: databaseConfName,
+                    files: files
+                }]).then(() => {
+                    Server.start(AuthenticationAPI);
+                });
+            } else {
+                Server.start(AuthenticationAPI);
             }
-            Database.runScripts([{
-                configName: databaseConfName,
-                files: files
-            }]).then(() => {
-                Server.start();
-            });
-        } else {
-            Server.start();
-        }
+        });
     }
 
-    static start() {
+    static start(AuthenticationAPI) {
+
+
+        AuthenticationAPIMiddleware = AuthenticationAPI.AuthenticationAPIMiddleware;
         let server = new HornetServer.Server(Server.configure(), Server.middleware());
         server.start();
+
+
     }
 }

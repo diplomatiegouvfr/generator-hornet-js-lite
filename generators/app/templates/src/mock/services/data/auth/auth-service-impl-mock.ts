@@ -3,6 +3,7 @@ import { Logger } from "hornet-js-utils/src/logger";
 import { AuthService } from "src/services/data/auth/auth-service";
 import { ServiceSecure } from "hornet-js-core/src/services/service-secure";
 import { Response } from "superagent";
+import { Promise } from "hornet-js-utils/src/promise-api";
 
 const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.mock.services.data.auth.auth-service-mock-impl");
 
@@ -10,7 +11,7 @@ const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.mock.services.da
  * Liste des utilisateurs en mode bouchon
  * @type {any[]}
  */
-var users = [
+const users = [
     {
         "name": "test",
         "roles": [{"id": 2, "name": "<%= slugify(appname) %>_USER"}]
@@ -20,9 +21,10 @@ var users = [
         "roles": [{"id": 1, "name": "<%= slugify(appname) %>_ADMIN"}, {"id": 2, "name": "<%= slugify(appname) %>_USER"}]
     }
 ];
+
 function findByUsername(username) {
-    for (var i = 0, len = users.length; i < len; i++) {
-        var user = users[i];
+    for (let i = 0, len = users.length; i < len; i++) {
+        let user = users[ i ];
         if (user.name === username) {
             return user;
         }
@@ -36,23 +38,16 @@ function findByUsername(username) {
  * @implements {AuthService}
  * @extends {ServiceApi}
  */
-export class AuthServiceMockImpl extends AuthService {
+export class AuthServiceDataMockImpl extends AuthService {
 
     /**
      * recherche de l'identité
      * @param {object} data
      */
-    auth(data) : Promise<any> {
-        logger.info("SERVICES MOCK - auth", data);
+    auth(data): Promise<any> {
+        logger.trace("SERVICES MOCK - auth", data);
         let user = findByUsername(data.login);
         return Promise.resolve(user);
-    }
-
-    saveToken(response:Response) {
-    }
-
-    getToken() {
-        return null;
     }
 
 }

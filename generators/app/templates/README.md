@@ -218,64 +218,79 @@ Ce bloc contient l'ensemble des paramètres destinés à la configuration de hel
   }
 ```
 
-## Configuration des logs serveur
+## Configuration des logs : log4js.json
 
-Niveau de log :
-
-| Paramètre | Description | Valeur |
-|-----------|-------------|--------|
-|level.[all]|Niveau de log pour toute l'application|INFO|
-|level.monappli.view|Niveau de log spécifique pour une partie de l'application |optionnel|
-
-```javascript
- "log": {
-    "levels": {
-      "[all]": "DEBUG",
-      "hornet-js-components.table": "TRACE"
-    }
-    ...
-```
-
-Déclaration des appenders :
+### Appender console
 
 | Paramètre | Description | Valeur |
 |-----------|-------------|--------|
-|type|Type d'appender|*file* pour un fichier simple<br/>*dateFile* pour un fichier contenant la date<br/>*console* ...|
-|filename| Chemin absolu ou relatif au lancement du fichier de log | /var/log/nodejs/<%= slugify(appname) %>/<%= slugify(appname) %>-1.log|
-|pattern| Présent pour les types *dateFile* <br />Permet de donner un pattern de date qui sera ajouté au nom du fichier.|-yyyy-MM-dd|
+|type|Type d'appender|*console* Affiche des logs dans la console |console|
 |layout.type| Type d'affichage des messages|pattern|
-|layout.pattern| Schéma d'affichage des messages |"%[%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m%]"|
+|layout.pattern| Schéma d'affichage des messages,  %[...] permet d'afficher les couleurs dans la console.|"%[%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m%]"|
 
 
 Ex: type console
 
-```javascript
-"appenders": [
-	{
-	    "type": "console",
-	    "layout": {
-	      "type": "pattern",
-	      "pattern": "%[%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m%]"
-	    }
-	}
-]
+```json
+{
+   "appenders": {
+      "console": {
+        "type": "console",
+        "layout": {
+          "type": "pattern",
+          "pattern": "%[%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m%]"
+        }
+      }
+  }
+}
 ```
 
-ex : type fichier
+### Appender dateFile
 
-```javascript
-"appenders": [
-	{
-	    "type": "dateFile",
-	    "filename": "log/app.log",
-	    "layout": {
-	      "type": "pattern",
-	      "pattern": "%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m"
-	    }
-	}
-]
+| Paramètre | Description | Valeur |
+|-----------|-------------|--------|
+|type|Type d'appender|*dateFile* permet d'avoir un rolling avec un fichier contenant la date|dateFile|
+|pattern| Présent pour les types *dateFile* <br />Permet de donner un pattern de date qui sera ajouté au nom du fichier.|-yyyy-MM-dd|
+|filename| Chemin absolu ou relatif au lancement du fichier de log | /var/log/nodejs/#{INSTANCE_NAME}/#{INSTANCE_NAME}.log |
+|layout.type| Type d'affichage des messages|pattern|
+|layout.pattern| Schéma d'affichage des messages |"%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m"|
+|compress| Compression gzip lors du rotate |true|
+|keepFileExt| Permet de garder le pattern de log d'origine, monappli-20171212.log.gz |true|
+
+
+```json
+{
+   "appenders": {
+      "dateFile": {
+         "type": "dateFile",
+         "pattern": ".yyyy-MM-dd",
+         "filename":"/var/log/nodejs/#{INSTANCE_NAME}/#{INSTANCE_NAME}.log",
+         "layout": {
+            "type": "pattern",
+            "pattern": "%d{ISO8601}|%x{tid}|%x{user}|%p|%c|%x{fn}|%m"
+         },
+         "compress": true,
+         "keepFileExt": true
+      }
+   }
+}
 ```
 
+### Categories
+
+| Paramètre | Description | Valeur |
+|-----------|-------------|--------|
+|default|Nom d'une categorie d'appender|default|
+|appenders|Liste des appenders utilisés |"dateFile", "console"|
+|level|Level des appenders |INFO|
+
+```json
+{
+   "categories": {
+      "default": { "appenders": ["dateFile", "console"], "level": "INFO" }
+   }
+}
+```
 ## Configuration des logs client
 
 | Paramètre | Description | Valeur |
@@ -301,13 +316,14 @@ Type BrowserConsole :
 |layout.type| Type d'affichage des messages|THIN/BASIC/pattern/...|
 |layout.pattern| Schéma d'affichage des messages |"%p|%c|%m%"|
 
-```javascript
-"appenders": [
-{
-	"type": "BrowserConsole",
-	"layout": {
-	  "type": "THIN"
-	}
+```json
+"appenders": {
+    "BrowserConsole" : {
+        "type": "BrowserConsole",
+        "layout": {
+          "type": "THIN"
+        }
+    }
 }
 ```
 
@@ -322,18 +338,18 @@ Type Ajax :
 |timeout|Timeout d'envoie des messages|3000|
 |url|URL d'envoi des logs|/logs|
 
-```javascript
-"appenders": [
-	{
-	    "type": "Ajax",
-	    "layout": {
-	      "type": "BASIC"
-	    },
-	    "threshold": 100,
-	    "timeout": 3000,
-	    "url": "/log"
-	}
-]
+```json
+"appenders": {
+    "Ajax": {
+        "type": "Ajax",
+        "layout": {
+          "type": "BASIC"
+        },
+        "threshold": 100,
+        "timeout": 3000,
+        "url": "/log"
+    }
+}
 ```
 
 ## Configuration des services
@@ -467,8 +483,7 @@ Note : Il ne s'agit pas d'une configuration à proprement parler de Hornet mais 
         "user": "user",
         "pass": "pass"
       }
-    },
-    "mailReceiver": "AppliTutoBox <applituto@dev.hornet>",
-    "mailSender": "contact.applituto@diplomatie.gouv.fr"
+    }
+
   }
 ```

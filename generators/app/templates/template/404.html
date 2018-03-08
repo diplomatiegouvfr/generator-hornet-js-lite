@@ -3,11 +3,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="icon" type="image/png" href="/<%= slugify(appname) %>/static-<%= fmkversion %>/img/logoHornet.png"/>
+    <link rel="icon" type="image/png" href="img/logoHornet.png"/>
     <title>Erreur 404</title>
     <link rel="stylesheet" type="text/css"
-          href="/<%= slugify(appname) %>/static-<%= fmkversion %>/hornet-themes/css/theme.css"/>
-    <link rel="stylesheet" type="text/css" href="/<%= slugify(appname) %>/static-<%= fmkversion %>/css/theme.css"/>
+          href="<%%=project.static%><%= slugify(theme) %>/css/theme.css"/>
+    <link rel="stylesheet" type="text/css" href="<%%=project.static%>css/theme.css"/>
 </head>
 <body>
 <div id="app">
@@ -31,11 +31,11 @@
                                                    href="/<%= slugify(appname) %>/accueil"
                                                    title="Hornet - Retour vers la page d&#x27;accueil "
                                                    id="img-logo"><img
-                                src="img/logoHornet.png"
-                                alt="<%= appname %>"/></a></div>
+                                src="<%%=project.static%>img/logoHornet.png"
+                                alt="<%= slugify(appdescription) %>"/></a></div>
                         <div class="fl mls"><a class="sub-header-link" href="/<%= slugify(appname) %>/accueil"
                                                title="Hornet - Retour vers la page d&#x27;accueil ">
-                            <h1 id="app-title">/<%= appname %></h1></a></div>
+                            <h1 id="app-title"><%%=messages.applicationTitle%></h1></a></div>
                     </div>
                 </div>
             </header>
@@ -53,17 +53,17 @@
                 <div class="fl mll">
                     <ul class="footer-links">
                         <li><a href="/<%= slugify(appname) %>/planAppli"
-                               title="Plan de l&#x27;application l&#x27; <%= appname %>">Plan de l&#x27;application</a>
+                               title="Plan de l&#x27;application l&#x27; <%%=messages.applicationTitle%>">Plan de l&#x27;application</a>
                         </li>
                         <li><a href="/<%= slugify(appname) %>/politiqueAccessibilite"
-                               title="Politique d&#x27;accessibilité de l&#x27; <%= appname %>">Accessibilité</a>
+                               title="Politique d&#x27;accessibilité de l&#x27; <%%=messages.applicationTitle%>">Accessibilité</a>
                         </li>
                         <li><a href="/<%= slugify(appname) %>/contact"
-                               title="Contact de l&#x27; <%= appname %>">Contact</a>
+                               title="Contact de l&#x27; <%%=messages.applicationTitle%>">Contact</a>
                         </li>
                     </ul>
                 </div>
-                <div class="fr mrl"><p><%= appname %> - v<%= appversion %></p></div>
+                <div class="fr mrl"><p><%%=messages.applicationTitle%> - <%%= project.version %></p></div>
             </div>
         </footer>
     </div>

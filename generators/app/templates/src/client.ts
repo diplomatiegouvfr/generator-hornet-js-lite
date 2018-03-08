@@ -5,6 +5,7 @@ import { Routes } from "src/routes/routes";
 import { HornetApp } from "src/views/layouts/hornet-app";
 import { ErrorPage } from "hornet-js-react-components/src/widget/component/error-page";
 import { ReactClientInitializer } from "hornet-js-react-components/src/react/react-client";
+import "src/injector-context-services-page";
 
 (function startClient() {
     const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.client");
@@ -29,7 +30,7 @@ import { ReactClientInitializer } from "hornet-js-react-components/src/react/rea
                 strict: false,
                 convert_hash_in_init: false,
                 recurse: false,
-                notfound: function() {
+                notfound: function () {
                     logger.error("Erreur. Cette route n'existe pas :'" + this.path + "'");
                 }
             }
@@ -37,14 +38,14 @@ import { ReactClientInitializer } from "hornet-js-react-components/src/react/rea
 
         // On supprime le spinner de chargement de l'application
         // Cela ne gêne pas React car il est en dehors de sa div "app"
-        let readyCallback = function() {
+        let readyCallback = function () {
             var appLoading = document.getElementById("firstLoadingSpinner");
             if (appLoading) {
                 appLoading.parentNode.removeChild(appLoading);
             }
         };
 
-        let clientInit:ReactClientInitializer = new ReactClientInitializer(configClient.appComponent, readyCallback);
+        let clientInit: ReactClientInitializer = new ReactClientInitializer(configClient.appComponent, readyCallback);
 
         Client.initAndStart(configClient, clientInit);
     } catch (exc) {

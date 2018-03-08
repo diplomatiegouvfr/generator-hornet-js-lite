@@ -3,10 +3,9 @@ import { Logger } from "hornet-js-utils/src/logger";
 import { UtilisateursDAO } from "src/dao/utilisateurs-dao";
 import { UtilisateurMetier } from "src/models/user-mod";
 import { AuthService } from "src/services/data/auth/auth-service";
-import { ServiceSecure } from "hornet-js-core/src/services/service-secure";
 import { Response } from "superagent";
 
-const logger:Logger = Utils.getLogger("<%= slugify(appname) %>.src.services.data.adm.auth-service-data-impl");
+const logger:Logger = Utils.getLogger("<%= slugify(appname) %>.src.services.data.auth.auth-service-data-impl");
 
 export class AuthServiceImpl extends AuthService {
 
@@ -37,11 +36,4 @@ export class AuthServiceImpl extends AuthService {
         // this.utilisateursDAO.deleteById(id).done(cb);
     }
 
-    saveToken(response: Response) {
-
-    }
-
-    getToken() {
-        return null;
-    }
 }

@@ -1,72 +1,65 @@
 {
   "contextPath": "#{APPLICATION_CONTEXT_ROOT}",
-  "localeI18n": {
-    "locale": "fr-FR",
-    "lang": "fr"
-  },
   "cookie": {
-    "httpOnly": true,
-    "secure": false
+    "httpOnly": #{COOKIE_HTTP_ONLY},
+    "secure": #{COOKIE_SECURE}
   },
   "security": {
-    "enabled": true,
+    "enabled": #{SECURITY_ENABLED},
+    "hpp": true,
+    "ieNoOpen": true,
+    "noSniff": true,
     "csp": {
-      "enabled": true,
-      "connectSrc": [
-        "'self'"
-      ],
-      "scriptSrc": [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'"
-      ],
-      "styleSrc":[
-        "'self'",
-        "'unsafe-inline'"
-      ],
-      "fontSrc":[
-        "'self'"
-      ],
-      "imgSrc":[
-        "'self'"
-      ],
-      "formAction": [
-        "'self'"
-      ]
+      "enabled": true
     },
-      "reportOnly": false
+    "frameguard": {
+      "enabled": true
+    },
+    "xss": {
+      "enabled": true
+    },
+    "hpkp": {
+      "enabled": true
+    },
+    "hsts": {
+      "enabled": false
+    },
+    "csrf": {
+      "enabled": true
+    }
   },
   "logClient": {
-    "remote": false,
-    "level": "INFO",
-    "appenders": [
-      {
+    "remote": #{LOG_CLIENT_REMOTE},
+    "level": "#{LOG_CLIENT_LEVEL}",
+    "appenders": {
+      "BrowserConsole": {
         "type": "BrowserConsole",
         "layout": {
           "type": "THIN"
         }
       }
-    ]
+    }
   },
   "database": {
     "config": {
       "uri": "#{DATABASE_URI}",
       "options" : {
         "pool" : {
-          "max" : 5,
-          "min" : 0,
-          "idle" : 1000
+          "max" : #{DATABASE_POOL_MAX},
+          "min" : #{DATABASE_POOL_MIN},
+          "idle" : #{DATABASE_POOL_IDLE}
         },
         "define": {
           "timestamps" : false
         },
-        "omitNull" : false
+        "loggingLevel" : "#{DATABASE_LOGGING_LEVEL}"
       }
     }
   },
   "antivirus" : {
     "host" : "#{ANTIVIRUS_HOST}",
     "port" : #{ANTIVIRUS_PORT},
+    "timeout" : #{ANTIVIRUS_TIMEOUTE}
   },
   "mail": {
     "config": {
@@ -76,22 +69,19 @@
       "connectionTimeout": #{MAIL_TIMEOUT},
       "tls": {
         "rejectUnauthorized": #{MAIL_TLS_REJECT}
-      },
-      "auth": {
-        "user": "#{MAIL_USER}",
-        "pass": "#{MAIL_PASS}"
       }
     },
-    "mailReceiver": "#{MAIL_RECEIVER}",
-    "mailSender": "#{MAIL_SENDER}"
   },
-  "mock": {
-    "enabled": false
-  },
-  "fullSpa": {
-    "enabled": false
-  },
-  "cache": {
-    "enabled": false
+  "request": {
+    "cache": {
+      "client": {
+        "enabled": #{CACHE_CLIENT},
+        "timetolive": #{CACHE_CLIENT_TTL}
+      },
+      "server": {
+        "enabled": #{CACHE_SERVER},
+        "timetolive": #{CACHE_SERVER_TTL}
+      }
+    }
   }
 }

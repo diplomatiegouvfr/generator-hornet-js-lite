@@ -1,11 +1,12 @@
 import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
+
 const sha1 = require("sha1");
 const flash = require("connect-flash");
 
 import { Request, Application } from "express";
 import * as ReactDOMServer from "react-dom/server";
-import * as passport from "passport"
+import * as passport from "passport";
 import { Strategy } from "passport-local";
 import * as _ from "lodash";
 import { ConnexionPage } from "src/views/gen/gen-cnx-page";
@@ -26,7 +27,7 @@ export class AuthenticationMiddleware extends AbstractHornetMiddleware {
         passport.use(new Strategy(
             function (_api) {
                 return function (username, password, done) {
-                    AuthenticationMiddleware.logger.info("Tentative d'authentification de l'utilisateur ", username);
+                    AuthenticationMiddleware.logger.trace("Tentative d'authentification de l'utilisateur ", username);
 
                     let encodedPassword = sha1(password);
                     _api.auth({
@@ -49,6 +50,7 @@ export class AuthenticationMiddleware extends AbstractHornetMiddleware {
             }(this.api)
         ));
         passport.serializeUser(function (user, done) {
+            // Pour l'appli on sérialise tout l'objet plutot que juste son ID
             done(null, user);
         });
 
@@ -76,7 +78,7 @@ export class AuthenticationMiddleware extends AbstractHornetMiddleware {
         app.post(loginUrl,
             passport.authenticate("local", {failureRedirect: Utils.buildContextPath(loginUrl), failureFlash: true}),
             function (req: Request, res, next) {
-                AuthenticationMiddleware.logger.info("Authentification ok, redirection vers la page d'accueil");
+                AuthenticationMiddleware.logger.trace("Authentification ok, redirection vers la page d'accueil");
                 let previousUrl = req.body.previousUrl || req.getSession().getAttribute("previousUrl") || Utils.buildContextPath(welcomePageUrl);
                 res.redirect(previousUrl);
             }

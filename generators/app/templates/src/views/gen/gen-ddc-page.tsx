@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
 import { HornetPage } from "hornet-js-react-components/src/widget/component/hornet-page";

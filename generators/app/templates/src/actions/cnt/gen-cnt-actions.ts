@@ -10,7 +10,7 @@ const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.actions.cnt.gen-
  */
 export class Send extends RouteActionService<any, ContactService> {
     execute(): Promise<any> {
-        logger.info("ACTION Send - Appel API : ContactApi.send - Dispatch CONTACT_SENT");
+        logger.trace("ACTION Send - Appel API : ContactApi.send - Dispatch CONTACT_SENT");
 
         if (this.req.body) {
             return this.getService().envoyer(this.req.body);

@@ -1,6 +1,6 @@
 {
   "name": "generator-hornet-js-lite",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "Générateur de projet d'application web Hornet JS Lite",
   "keywords": [
     "yeoman-generator"
@@ -12,5 +12,8 @@
     "slugify": "1.0.2",
     "yeoman-generator": "1.0.1",
     "yosay": "1.2.1"
+  },
+  "scripts": {
+    "version": "echo $npm_package_version"
   }
 }

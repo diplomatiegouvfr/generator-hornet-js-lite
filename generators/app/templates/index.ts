@@ -14,7 +14,7 @@ var NODE_MODULES_APP = path.join("node_modules", "app");
 
 
 // on surcharge la méthode de résolution interne nodejs pour gérer d'autres répertoires
-Module._newNodeModulePaths = function(from) {
+Module._newNodeModulePaths = function (from) {
     var paths = [];
     var matched = matchModuleDirectory(from);
 
@@ -31,7 +31,7 @@ Module._nodeModulePaths = Module._newNodeModulePaths;
 function matchModuleDirectory(from) {
     var match = null, len = 0;
     for (var i = 0; i < moduleDirectories.length; i++) {
-        var mod = moduleDirectories[i];
+        var mod = moduleDirectories[ i ];
         if (from.indexOf(mod + path.sep) === 0 && mod.length > len) {
             match = mod;
             len = mod.length;
@@ -78,12 +78,12 @@ try {
             if (builder.externalModules && builder.externalModules.enabled && builder.externalModules.directories) {
                 builder.externalModules.directories.push(path.join(process.cwd(), "../"));
             }
-        }    
+        }
     }
 
     if (builder.externalModules && builder.externalModules.enabled && builder.externalModules.directories && builder.externalModules.directories.length > 0) {
 
-        builder.externalModules.directories.forEach(function(directory) {
+        builder.externalModules.directories.forEach(function (directory) {
             try {
                 directory = directory.replace("~", os.homedir());
                 var stat = fs.statSync(directory);
@@ -98,7 +98,7 @@ try {
                     // on vérifie si des répertoires du 1er niveau sont des modules nodejs pour les ajouter eux aussi
                     var files = fs.readdirSync(directory);
                     var moduleFound = false;
-                    files.forEach(function(file) {
+                    files.forEach(function (file) {
                         let modPath = path.normalize(path.join(directory, file));
                         if (fs.statSync(modPath).isDirectory()) {
                             if (file.indexOf(".") === 0) return;
@@ -152,14 +152,15 @@ ServerLogConfigurator.configure();
 
 // initialisation des infos de l'application courante
 import { AppSharedProps } from "hornet-js-utils/src/app-shared-props";
+import { Utils } from "hornet-js-utils";
 var packageJson = require("./package");
 AppSharedProps.set("appName", packageJson.name);
 AppSharedProps.set("appVersion", packageJson.version);
 AppSharedProps.set("appDescription", packageJson.description);
 AppSharedProps.set("appAuthor", packageJson.author);
+AppSharedProps.set("sessionTimeout", Utils.config.get("server.sessionTimeout"));
+AppSharedProps.set("notifSessionTimeout", Utils.config.get("server.notifications.sessionTimeoutDelay"));
 
-// Mise en place des injections de service
-import "./src/injector-context";
 
 // lancement de l'application
 import { Server } from "src/server";
