@@ -42,7 +42,10 @@ export class HornetLayout extends HornetPage<any, HornetLayoutProps, any> {
         super(props, context);
 
         const currentUrl = Utils.getCls("hornet.routePath");
-        this.state.applicationTitle = this.i18n(NavigationUtils.retrievePageTextKey(NavigationUtils.getConfigMenu(), currentUrl));
+        this.state = {
+            ...this.state,
+            applicationTitle: this.i18n(NavigationUtils.retrievePageTextKey(NavigationUtils.getConfigMenu(), currentUrl))
+        };
     }
 
     prepareClient() {

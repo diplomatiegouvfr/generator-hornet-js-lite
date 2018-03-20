@@ -4,9 +4,9 @@ pipeline {
     }
 
     environment {
-
-        MODULE_GROUP="your.domain.<%= slugify(appname) %>"
-        MODULE_GROUP_PUB="your/domain/<%= slugify(appname) %>"
+        // Projet
+        MODULE_GROUP="fr.gouv.diplomatie.<%= slugify(appname) %>"
+        MODULE_GROUP_PUB="fr/gouv/diplomatie/<%= slugify(appname) %>"
         MODULE_ID="<%= slugify(appname) %>"
         MODULE_APPLI="<%= slugify(appname) %>"
 
