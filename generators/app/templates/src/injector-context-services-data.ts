@@ -3,20 +3,17 @@ import { Scope } from "hornet-js-core/src/inject/injectable";
 import { Utils } from "hornet-js-utils";
 import { AuthService } from "src/services/data/auth/auth-service";
 
+// Injector pour databaseConfigName doit être réalisé avant les imports des implementations de services car il est utilisé
+// dans ceux ci
 Injector.register("databaseConfigName", "config");
 
+import { AuthServiceDataMockImpl } from "src/mock/services/data/auth/auth-service-impl-mock";
+import { AuthServiceImpl } from "src/services/data/auth/auth-service-impl";
+
 if (Utils.config.getOrDefault("mock.enabled", false) && Utils.config.getOrDefault("mock.serviceData.enabled", false)) {
-    Promise.all([
-        import("src/mock/services/data/auth/auth-service-impl-mock")
-    ]).then(([AuthServiceDataMockImpl] ) => {
-        Injector.register(AuthService, AuthServiceDataMockImpl.AuthServiceDataMockImpl, Scope.SINGLETON);
-    });
+    Injector.register(AuthService, AuthServiceDataMockImpl, Scope.SINGLETON);
 } else {
-    Promise.all([
-        import("src/services/data/auth/auth-service-impl")
-    ]).then(([AuthServiceImpl, SecteurServiceImpl, PartenaireServiceImpl, ReferentielPaysServiceImpl, FicheProduitServiceImpl]) => {
-        Injector.register(AuthService, AuthServiceImpl.AuthServiceImpl, Scope.SINGLETON);
-    });
+    Injector.register(AuthService, AuthServiceImpl, Scope.SINGLETON);
 }
 
 

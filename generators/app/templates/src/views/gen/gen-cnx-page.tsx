@@ -33,7 +33,7 @@ export class ConnexionPage extends HornetComponent<ConnexionPageProps,any> {
         return (
             <html lang='fr'>
             <head>
-                <title>{"Magasin de L'Étang-Salé : Authentification centrale"}</title>
+                <title>{this.i18n("authPage.title")}</title>
                 <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <link rel="icon" type="image/png" href={this.genUrlStatic("/img/logoHornet.png")}/>
                 <link rel="stylesheet" type="text/css" href={ConnexionPage.genUrlTheme(fwkTheme)}/>
@@ -42,7 +42,7 @@ export class ConnexionPage extends HornetComponent<ConnexionPageProps,any> {
             <body id="auth">
             <div id="site">
                 <div id="content">
-                    <h1 id="app-name">{"Magasin de L'étang-salé Authentification centrale."}</h1>
+                    <h1 id="app-name">{this.i18n("authPage.title")}</h1>
                     <form id="fm1" className="fm-v" method="post">
                         <div id="login" className="box">
                             <h2>Entrez votre identifiant et votre mot de passe.</h2>

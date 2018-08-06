@@ -30,7 +30,7 @@ export class ContactServiceImpl extends ServiceRequest implements ContactService
             content: data.message
         };
 
-        let templatedMessage: string =
+        let templatedMessage =
             new Template(HornetComponent.getI18n("contactPage.mailTemplate"))
             .process(valuesToWriteIntoMessage, "?");
 

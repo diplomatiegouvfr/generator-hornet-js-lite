@@ -1,4 +1,16 @@
 const path = require("path");
+
+const clientContext = [
+    [/moment[\/\\]locale$/, /fr|en/],
+    [/intl[\/\\]locale-data[\/\\]jsonp$/, /fr|en/],
+    [/^\.$/, (context) => {
+        if (!/\/locale-data\//.test(context.context)) console.log("locale-daa", context);
+        if (!/\/log4js\/lib$/.test(context.context)) return;
+        context.regExp = /^\.\/appenders\/console.*$/;
+        context.request = ".";
+    }]
+];
+
 module.exports = {
     type: "application",
     authorizedPrerelease: "false",
@@ -74,12 +86,17 @@ module.exports = {
                 "tls"
             ]
         },
-        clientContext: [
-            [/moment[\/\\]locale$/, /fr/],
-            [/intl[\/\\]locale-data[\/\\]jsonp$/, /fr/],
-            [/.appender/, /console/]
-        ],
-        typescript: { //bin: "~/Dev/node-v4.5.0-linux-x64/lib/node_modules/typescript"
+        clientContext: clientContext,
+        karma: {
+            template: {
+                debug: "./test/template/debug.html",
+                context: "./test/template/context.html",
+                clientContext: "./test/template/client_with_context.html"
+            },
+            clientContext: clientContext,
+            clientExclude: {
+                modules: ["cluster", "continuation-local-storage", "config", "cluster"]
+            }
         },
         template: [{
             context: [{
@@ -110,5 +127,4 @@ module.exports = {
             }
         }
     }
-
 };

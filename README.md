@@ -51,14 +51,11 @@ $ yo hornet-js-lite
 Le générateur va vous demander plusieurs informations nécessaires à l'initialisation de votre projet Hornet JS :
 
 * ` Nom de votre projet: (nom_de_l_application) ` : par défaut, le nom du répertoire est suggéré comme nom technique du projet
-* ` Titre de l'application ` : le titre de l'application apparaît dans le bandeau de tête et le titre des pages de l'application.
-* ` Description de votre projet ` : un texte court présentant succintement le projet.
 * ` Version de votre projet:` `(1.0.0)` : version du projet (`1.0.0` par défaut).
-* ` Version du framework (hornet-js):` `(5.0.0)` : version du framework hornet-js (`5.0.0` par défaut identique à generator-hornet-js).
-* ` Url du thème: (intranet) ` : l'url du thème à utiliser pour l'application (`http://localhost:7777/5.0.0/intranet` par défaut)
-* ` URL de base des services de l'application: ` : URL où sont accessibles les services (partie Java Tomcat) de votre application.
-* ` Nom/contexte des services de l'application ` : nom de l'application fournissant les services (partie Java Tomcat) de votre application.
-* ` Version des services de l'application:` `(1.0.0)` : version de l'application fournissant les services (partie Java Tomcat) de votre application. Par défaut le numéro de version est le même que celui donné au début de cette procédure.
+* ` Description de votre projet ` : un texte court présentant succintement le projet.
+* ` Version du framework (hornet-js):` `(5.2.0)` : version du framework hornet-js (`5.2.0` par défaut identique à generator-hornet-js).
+* ` Theme de l'application, ex : hornet-themes-intranet (hornet-themes-[NOM_THEME]) ` : theme sous forme de projet et dépendance
+* ` Version du theme de l'application (5.2.0)` : version du projet theme
 
 Le processus d'initialisation vous indique ensuite les fichiers créés :
 

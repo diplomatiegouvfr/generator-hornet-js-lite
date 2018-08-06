@@ -57,7 +57,7 @@
     }
   },
   "textarea": {
-    "alertMessage": "Le nombre de caractère renseigné est trop élevé par rapport au nombre maximum ({count}/{maxChar}).",
+    "alertMessage": "Le nombre de caractères renseigné est trop élevé par rapport au nombre maximum ({count}/{maxChar}).",
     "alertTitle": "Nombre de caractères trop élevé",
     "charLabel": "{count, plural, =1 {1 caractère} other {# caractères}}"
   },
@@ -99,6 +99,11 @@
   "breadcrumb": {
     "arialabel": "Fil d'ariane"
   },
+  "shortcuts": {
+    "iconTitle": "Informations raccourcis",
+    "modalTitle": "Accessibilité Tableau",
+    "modalContentTitle": "Raccourcis clavier"
+  },
   "toggleColumnsButton": {
     "title": "Colonnes à afficher/masquer"
   },
@@ -107,7 +112,8 @@
   },
   "table": {
     "pager": {
-      "dropdownTitle": "Nombre d'élément"
+      "dropdownTitle": "Nombre d'éléments {summary}",
+      "inputLabel": "Numéro de la page affichée du {summary}"
     },
     "menuActions": {
       "title": "Menu d'actions"
@@ -136,7 +142,7 @@
     "descending": "dans l'ordre décroissant",
     "ascending": "dans l'ordre croissant",
     "rowNumber": "Lignes : ",
-    "pageFooter": "Afficher :",
+    "pageFooter": "Afficher ",
     "pageFooterOn": "sur",
     "exportTitle": "Exporter au format {format}",
     "numberElementTitle": "{count, plural, =0 {(aucun élément) } =1 {(1 élément)} other {(# éléments)}}",
@@ -145,16 +151,13 @@
       "csv": "CSV",
       "pdf": "PDF"
     },
-    "firstPage": "|< Début",
-    "prevPage": "< Précédent",
-    "nextPage": "Suivant >",
-    "lastPage": "Fin >|",
     "inputPage": "Saisie de la page à afficher",
     "10": "10",
     "20": "20",
     "50": "50",
     "100": "100",
     "displayAll": "Afficher tout",
+    "formatDateInvalid": "Le format du champ « {title} » est incorrect.",
     "shortcuts": {
       "iconTitle": "Informations raccourcis",
       "modalTitle": "Accessibilité Tableau",
@@ -202,10 +205,10 @@
   },
   "header": {
     "logoTitle": "Hornet - Retour vers la page d'accueil",
-    "contentTitle": "Aller au contenu de l' ",
-    "menuTitle": "Aller au menu de l' ",
-    "planTitle": "Plan de l'application l' ",
-    "accessTitle": "Politique d'accessibilité de l' ",
+    "contentTitle": "Aller au contenu de l'",
+    "menuTitle": "Aller au menu de l'",
+    "planTitle": "Plan de l'",
+    "accessTitle": "Politique d'accessibilité de l'",
     "content": "Aller au contenu",
     "menu": "Aller au menu",
     "plan": "Plan de l'application",
@@ -215,9 +218,6 @@
     "contactTitle": "Contact de l'",
     "expand": "Agrandir la page",
     "contract": "Réduire la page"
-  },
-  "dropdown": {
-    "selectAll": "Sélectionner tout"
   },
   "navigation": {
     "welcome": "Accueil",
@@ -237,6 +237,9 @@
       "guest": "Invité"
     }
   },
+  "authPage": {
+    "title": "Authentification"
+  },
   "contactPage": {
     "title": "Contact",
     "form": {
@@ -252,7 +255,7 @@
         "mail": {
           "label": "Mail",
           "required": "Le champ « Email » est obligatoire. Veuillez saisir ce champ.",
-          "format": "Le format du champ « Email » est incorrect (format attendu: nom@example.com)"
+          "format": "Le format du champ « Email » est incorrect (format attendu : nom@example.com)"
         },
         "message": {
           "label": "Message",

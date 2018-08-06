@@ -40,7 +40,14 @@
   },
   "scripts": {
     "init-dev": "hb install",
-    "start": "node index.js"
+    "start": "node index.js",
+    "plop": "node ./node_modules/plop"
   },
-  "author": "MEAE - Ministère de l'Europe et des Affaires étrangères"
+  "devDependencies": {
+    "inquirer-directory": "2.1.0",
+    "inquirer-file": "1.0.0",
+    "plop": "2.0.0"
+  },
+  "author": "MEAE - Ministère de l'Europe et des Affaires étrangères",
+  "hornetJsBuilder": "1.5.4"
 }

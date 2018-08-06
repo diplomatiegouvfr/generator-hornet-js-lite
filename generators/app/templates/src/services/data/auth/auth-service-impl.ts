@@ -8,7 +8,6 @@ import { Response } from "superagent";
 const logger:Logger = Utils.getLogger("<%= slugify(appname) %>.src.services.data.auth.auth-service-data-impl");
 
 export class AuthServiceImpl extends AuthService {
-
     private utilisateursDAO: UtilisateursDAO = new UtilisateursDAO();
 
     auth(data): Promise<any> {
@@ -20,20 +19,12 @@ export class AuthServiceImpl extends AuthService {
         });
     }
 
-    listerUtilisateurs(): Promise<Array<UtilisateurMetier>> {
-        return this.utilisateursDAO.listerUtilisateurs();
-    }
-
-    modifierUtilisateur(id: string, data, cb: any) {
-        // this.utilisateursDAO.updateById(id, data).done(cb);
+    listerUtilisateurs(): Promise<UtilisateurMetier[]> {
+        return this.utilisateursDAO.findAllGeneric<UtilisateurMetier>(null, UtilisateurMetier);
     }
 
     creerUtilisateur(data): Promise<any> {
-        return this.utilisateursDAO.insert(data);
-    }
-
-    supprimerUtilisateur(id: string, cb: any) {
-        // this.utilisateursDAO.deleteById(id).done(cb);
+        return this.utilisateursDAO.insertGeneric(data);
     }
 
 }

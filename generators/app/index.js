@@ -154,6 +154,12 @@ module.exports = Generator.extend({
         // npmignore
         this._copy("npmignore", ".npmignore", defaultConfig);
 
+        // plopfile
+        this._copy("plopfile.js", "plopfile.js", defaultConfig);
+
+        // tests.webpack
+        this._copy("tests.webpack.js", "tests.webpack.js", defaultConfig);
+
         // config/*
         this._writingConfig(defaultConfig);
 
@@ -164,8 +170,13 @@ module.exports = Generator.extend({
 
         this._writingTemplate(defaultConfig);
 
+        this._writingPlopTemplate(defaultConfig);
+
         // src
         this._writingSrc(defaultConfig);
+
+        // test
+        this._writingTest(defaultConfig);
 
         this._writingDatabase(defaultConfig);
         this._writingEnvironnement(defaultConfig)
@@ -192,6 +203,9 @@ module.exports = Generator.extend({
     },
     _writingTemplate: function (defaultConfig) {
         this._copy("template/**", "template/", defaultConfig);
+    },
+    _writingPlopTemplate: function (defaultConfig) {
+        this._copy("plop-templates/**", "plop-templates/", defaultConfig);
     },
     _writingSrc: function (defaultConfig) {
 
@@ -234,6 +248,14 @@ module.exports = Generator.extend({
 
         //README.md
         this._copy("README.md", defaultConfig);
+    },
+
+    _writingTest: function (defaultConfig) {
+        // templates
+        this._copy("test/template/**", "test/template/", defaultConfig);
+
+        // karma test example
+        this._copy("test/test.karma.tsx", defaultConfig);
     },
 
     _applyParam: function (answers, key, destkey) {

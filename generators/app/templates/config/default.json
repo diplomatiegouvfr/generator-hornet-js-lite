@@ -96,9 +96,7 @@
       "disableAndroid": false
     },
     "frameguard": {
-      "enabled": true,
-      "mode": "deny",
-      "allowFromPattern": ""
+      "enabled": true
     },
     "xss": {
       "enabled": true,

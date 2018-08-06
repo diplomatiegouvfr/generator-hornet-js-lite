@@ -71,6 +71,8 @@
         "rejectUnauthorized": #{MAIL_TLS_REJECT}
       }
     },
+    "mailReceiver": "#{MAIL_RECEIVER}",
+    "mailSender": "#{MAIL_SENDER}"
   },
   "request": {
     "cache": {
