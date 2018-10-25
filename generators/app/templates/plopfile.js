@@ -42,7 +42,7 @@ module.exports = function (plop) {
   plop.setPartial('applicationName', require("./package.json").name);
 
   plop.setGenerator("add lazy route", {
-    description: "ajout des différent composants pour une route de type page",
+    description: "ajout des différents composants pour une route de type page",
     prompts: [
       {
         type: "file",
@@ -77,19 +77,30 @@ module.exports = function (plop) {
         validate: isNotEmptyFor( "url" )
       }
     ],
-    actions: [{
+    actions: ( data ) => {
+
+      let directory = ""
+      if(data.repertoire && data.groupe){
+        directory = data.repertoire + "/" + data.groupe
+      }else{
+        directory = "{{repertoire}}{{groupe}}"
+      }
+
+      let actions = [{
       type: "add",
-      path: "./src/routes/{{repertoire}}{{groupe}}/{{snakeCase routeClass}}.ts",
+      path: "./src/routes/"+ directory + "/{{snakeCase routeClass}}.ts",
       templateFile: "plop-templates/route.hbs"
     }, {
       type: "modify",
       path: "./src/routes/{{mainroute}}",
       pattern: /(\s+}\s*})$/mg,
-      template: "\nthis.addLazyRoutes(\"/{{url}}\", \"{{repertoire}}{{groupe}}/{{snakeCase routeClass}}\");\n$1"
+      template: "\nthis.addLazyRoutes(\"/{{url}}\", \""+ directory+ "/{{snakeCase routeClass}}\");\n$1"
     }]
+
+    return actions}
   });
   plop.setGenerator("new page route", {
-    description: "ajout des différent composants pour une route de type page",
+    description: "ajout des différents composants pour une route de type page",
     prompts: [
       {
         type: "file",
@@ -108,7 +119,7 @@ module.exports = function (plop) {
         name: "verb",
         message: "verbe http de la route à créer",
         default: "get",
-        choices: [{name: "get", value: "get"}, {name: "post", value: "post"}, {name: "update", value: "update"}, {name: "put", value: "put"}, {name: "delete", value: "delete"}]
+        choices: [{name: "get", value: "get"}, {name: "post", value: "post"}, {name: "patch", value: "patch"}, {name: "put", value: "put"}, {name: "delete", value: "delete"}]
       },
       {
         type: "list",
@@ -131,9 +142,9 @@ module.exports = function (plop) {
       },
       {
         type: "input",
-        name: "pageClassDescription",
+        name: "servicePageClassDescription",
         message: "description de la page",
-        validate: isNotEmptyFor( "pageClassDescription" ),
+        validate: isNotEmptyFor( "servicePageClassDescription" ),
         when: data => data.createPageClass
       },
       {
@@ -159,9 +170,9 @@ module.exports = function (plop) {
       },
       {
         type: "input",
-        name: "sevicePageClass",
+        name: "servicePageClass",
         message: "nom de la classe de service page",
-        validate: isNotEmptyFor( "sevicePageClass" ),
+        validate: isNotEmptyFor( "servicePageClass" ),
         filter: ensureSuffixe("ServicePage", true)
       },
       {
@@ -195,41 +206,55 @@ module.exports = function (plop) {
     ],
     actions: ( data ) => {
 
+      let pageDirectory ="";
+      if(data.pageDirectory && data.creatPathPage){
+        pageDirectory = data.pageDirectory + "/" + data.creatPathPage
+      }else{
+        pageDirectory = "{{pageDirectory}}{{creatPathPage}}"
+      }
+
+      let serviceDirectory ="";
+      if(data.serviceDirectory && data.creatPathService){
+        serviceDirectory = data.serviceDirectory + "/" + data.creatPathService
+      }else{
+        serviceDirectory = "{{serviceDirectory}}{{creatPathService}}"
+      }
+
       let templateImportPage = "";
       if(data.createPageClass) {
-        templateImportPage = "import { {{pageClass}} } from \"src/views/{{pageDirectory}}{{creatPathPage}}/{{snakeCase pageClass}}\";\n$1";
+        templateImportPage = "import { {{pageClass}} } from \"src/views/"+ pageDirectory+ "/{{snakeCase pageClass}}\";\n$1";
       } else {
         templateImportPage = "import { {{pageClass}} } from \"src/views/{{unixPathCase pageFile}}\";\n$1";
       }
 
       let templateImportServicePage = "";
       if (data.createServiceClass) {
-        templateImportServicePage = "import { {{sevicePageClass}} } from \"src/services/page/{{serviceDirectory}}{{creatPathService}}/{{snakeCase sevicePageClass}}\";\n$1";
+        templateImportServicePage = "import { {{servicePageClass}} } from \"src/services/page/"+ serviceDirectory +"/{{snakeCase servicePageClass}}\";\n$1";
       } else {
-        templateImportServicePage = "import { {{sevicePageClass}} } from \"src/services/page/{{unixPathCase serviceFile}}\";\n$1";
+        templateImportServicePage = "import { {{servicePageClass}} } from \"src/services/page/{{unixPathCase serviceFile}}\";\n$1";
       }
 
       let actions = [{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
         pattern: /(\s+}\s*})$/mg,
-        template: "\nthis.addPageRoute(\"/{{url}}\",\n() => new PageRouteInfos({{camelCase pageClass}}, null, Injector.getRegistered({{camelCase sevicePageClass}})),\nRoles.{{role}}\n);$1"
+        template: "\nthis.addPageRoute(\"/{{url}}\",\n() => new PageRouteInfos({{camelCase pageClass}}, null, Injector.getRegistered({{camelCase servicePageClass}})),\nRoles.{{role}}\n);$1"
       },{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
-        pattern: /(export default class)/mg,
+        pattern: /(export class|export default class)/mg,
         template: templateImportPage
       },{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
-        pattern: /(export default class)/mg,
+        pattern: /(export class|export default class)/mg,
         template: templateImportServicePage
       }]
 
       if ( data.createPageClass) {
         actions.push({
           type: "add",
-          path: "./src/views/{{pageDirectory}}{{creatPathPage}}/{{snakeCase pageClass}}.tsx",
+          path: "./src/views/"+ pageDirectory +"/{{snakeCase pageClass}}.tsx",
           templateFile: "plop-templates/page.hbs"
         });
       
@@ -237,7 +262,7 @@ module.exports = function (plop) {
       if ( data.createServiceClass) {
         actions.push({
           type: "add",
-          path: "./src/services/page/{{serviceDirectory}}{{creatPathService}}/{{snakeCase sevicePageClass}}.ts",
+          path: "./src/services/page/"+ serviceDirectory +"/{{snakeCase servicePageClass}}.ts",
           templateFile: "plop-templates/service-page.hbs"
         });
       }
@@ -247,7 +272,7 @@ module.exports = function (plop) {
   });
 
   plop.setGenerator("new data route", {
-    description: "ajout des différent composants pour une route de type data",
+    description: "ajout des différents composants pour une route de type data",
     prompts: [
       {
         type: "file",
@@ -266,7 +291,7 @@ module.exports = function (plop) {
         name: "verb",
         message: "verbe http de la route à créer",
         default: "get",
-        choices: [{name: "get", value: "get"}, {name: "post", value: "post"}, {name: "update", value: "update"}, {name: "put", value: "put"}, {name: "delete", value: "delete"}]
+        choices: [{name: "get", value: "get"}, {name: "post", value: "post"}, {name: "patch", value: "patch"}, {name: "put", value: "put"}, {name: "delete", value: "delete"}]
 
       },
       {
@@ -312,15 +337,15 @@ module.exports = function (plop) {
         type: "file",
         name: "actionFile",
         message: "fichier contenant la classe d'action'",
-        basePath: "./src/action",
+        basePath: "./src/actions",
         ext: ".ts",
         when: data => !data.createActionClass
       },
       {
         type: "input",
-        name: "seviceDataClass",
+        name: "serviceDataClass",
         message: "nom de la classe de service data",
-        validate: isNotEmptyFor( "seviceDataClass" ),
+        validate: isNotEmptyFor( "serviceDataClass" ),
         filter: ensureSuffixe("ServiceData", true)
       },
       {
@@ -328,6 +353,13 @@ module.exports = function (plop) {
         name: "createServiceClass",
         message: "Souhaitez-vous créer le fichier de service data",
         default: true
+      },
+      {
+        type: "input",
+        name: "serviceDataClassDescription",
+        message: "description de la page",
+        validate: isNotEmptyFor( "serviceDataClassDescription" ),
+        when: data => data.createServiceClass
       },
       {
         type: "directory",
@@ -354,47 +386,61 @@ module.exports = function (plop) {
     ],
     actions: ( data ) => {
 
+      let actionDirectory ="";
+      if(data.actionDirectory && data.creatPathAction){
+        actionDirectory = data.actionDirectory + "/" + data.creatPathAction
+      }else{
+        actionDirectory = "{{actionDirectory}}{{creatPathAction}}"
+      }
+
+      let serviceDirectory ="";
+      if(data.serviceDirectory && data.creatPathService){
+        serviceDirectory = data.serviceDirectory + "/" + data.creatPathService
+      }else{
+        serviceDirectory = "{{serviceDirectory}}{{creatPathService}}"
+      }
+
       let templateImportAction = "";
       if(data.createActionClass) {
-        templateImportAction = "import { {{actionClass}} } from \"src/actions/{{pageDirectory}}{{creatPathPage}}/{{snakeCase actionClass}}\";\n$1";
+        templateImportAction = "import { {{actionClass}} } from \"src/actions/"+ actionDirectory +"/{{snakeCase actionClass}}\";\n$1";
       } else {
         templateImportAction = "import { {{actionClass}} } from \"src/actions/{{unixPathCase actionFile}}\";\n$1";
       }
 
       let templateImportServiceData = "";
       if (data.createServiceClass) {
-        templateImportServiceData = "import { {{seviceDataClass}} } from \"src/services/data/{{serviceDirectory}}{{creatPathService}}/{{snakeCase seviceDataClass}}\";\n$1";
+        templateImportServiceData = "import { {{serviceDataClass}} } from \"src/services/data/"+ serviceDirectory +"/{{snakeCase serviceDataClass}}\";\n$1";
       } else {
-        templateImportServiceData = "import { {{seviceDataClass}} } from \"src/services/data/{{unixPathCase serviceFile}}\";\n$1";
+        templateImportServiceData = "import { {{serviceDataClass}} } from \"src/services/data/{{unixPathCase serviceFile}}\";\n$1";
       }
 
       let actions = [{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
         pattern: /(\s+}\s*})$/mg,
-        template: "\nthis.addDataRoute(\"/{{url}}\",\n(/*route parameter*/) => new DataRouteInfos({{camelCase actionClass}}, null, Injector.getRegistered({{camelCase seviceDataClass}})),\nRoles.{{role}}, \"{{verb}}\"\n);$1"
+        template: "\nthis.addDataRoute(\"/{{url}}\",\n(/*route parameter*/) => new DataRouteInfos({{camelCase actionClass}}, null, Injector.getRegistered({{camelCase serviceDataClass}})),\nRoles.{{role}}, \"{{verb}}\"\n);$1"
       },{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
-        pattern: /(export default class)/mg,
+        pattern: /(export class|export default class)/mg,
         template: templateImportAction
       },{
         type: "modify",
         path: "./src/routes/{{routeFile}}",
-        pattern: /(export default class)/mg,
+        pattern: /(export class|export default class)/mg,
         template: templateImportServiceData
       }]
       if ( data.createActionClass) {
         actions.push({
           type: "add",
-          path: "./src/actions/{{actionDirectory}}{{creatPathAction}}/{{snakeCase actionClass}}.ts",
+          path: "./src/actions/"+ actionDirectory +"/{{snakeCase actionClass}}.ts",
           templateFile: "plop-templates/action.hbs"
         });
       }
       if ( data.createServiceClass) {
         actions.push({
           type: "add",
-          path: "./src/services/data/{{serviceDirectory}}{{creatPathService}}/{{snakeCase seviceDataClass}}.ts",
+          path: "./src/services/data/"+ serviceDirectory +"/{{snakeCase serviceDataClass}}.ts",
           templateFile: "plop-templates/service-data.hbs"
         });
       }

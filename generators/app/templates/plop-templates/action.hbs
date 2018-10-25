@@ -2,9 +2,21 @@ import { Utils } from "hornet-js-utils";
 import { Logger } from "hornet-js-utils/src/logger";
 import { RouteActionService } from "hornet-js-core/src/routes/abstract-routes";
 {{#if createServiceClass}}
-import { {{sevicePageClass}} } from "src/services/data/{{serviceDirectory}}{{creatPathService}}/{{snakeCase seviceDataClass}}";
+    {{#if serviceDirectory}}
+        {{#if creatPathService}}
+import { {{serviceDataClass}} } from "src/services/data/{{serviceDirectory}}/{{creatPathService}}/{{snakeCase serviceDataClass}}";
+        {{else}}
+import { {{serviceDataClass}} } from "src/services/data/{{serviceDirectory}}/{{snakeCase serviceDataClass}}";
+        {{/if}}
+    {{else}}
+        {{#if creatPathService}}
+import { {{serviceDataClass}} } from "src/services/data/{{creatPathService}}/{{snakeCase serviceDataClass}}";
+        {{else}}
+import { {{serviceDataClass}} } from "src/services/data/{{snakeCase serviceDataClass}}";
+        {{/if}}
+    {{/if}}
 {{else}}
-import { {{sevicePageClass}} } from "src/services/data/{{unixPathCase serviceFile}}";
+import { {{serviceDataClass}} } from "src/services/data/{{unixPathCase serviceFile}}";
 {{/if}}
 
 const logger: Logger = Utils.getLogger("{{> applicationName }}.actions{{packageCase actionDirectory}}{{packageCase creatPathAction}}.{{snakeCase actionClass}}");
@@ -12,10 +24,11 @@ const logger: Logger = Utils.getLogger("{{> applicationName }}.actions{{packageC
 /**
  * {{actionClassDescription}}
  */
-export class {{camelCase actionClass}} extends RouteActionService<any, {{seviceDataClass}}> {
+export class {{camelCase actionClass}} extends RouteActionService<any, {{serviceDataClass}}> {
     execute(): Promise<any> {
         logger.trace("ACTION {{camelCase actionClass}} - Appel API : {{camelCase actionClass}}.methode_du_service");
-        return this.getService().methode_du_service();
+        //return this.getService().methode_du_service();
+        return null;
     }
 }
 

@@ -27,7 +27,6 @@
     "passport": "0.2.1",
     "passport-local": "1.0.0",
     "sha1": "1.1.1",
-    "chart.js": "2.6.0",
     "pg": "6.0.1",
     "pg-hstore": "2.3.2",
     "pg-native": "1.10.0",

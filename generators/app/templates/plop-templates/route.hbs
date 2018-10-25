@@ -1,7 +1,8 @@
 import { AbstractRoutes, PageRouteInfos, DataRouteInfos } from "hornet-js-core/src/routes/abstract-routes";
-import { Roles } from "applitutoriel-js-common/src/utils/roles";
+import { Roles } from "src/utils/roles";
+import { Injector } from "hornet-js-core/src/inject/injector";
 
-export default class {{routeClass}} extends AbstractRoutes {
+export class {{routeClass}} extends AbstractRoutes {
     constructor() {
         super();
 

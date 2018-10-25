@@ -4,17 +4,29 @@ import * as React from "react";
 import { HornetPage } from "hornet-js-react-components/src/widget/component/hornet-page";
 import { HornetComponentProps } from "hornet-js-components/src/component/ihornet-component";
 {{#if createServiceClass}}
-import { {{sevicePageClass}} } from "src/services/page/{{serviceDirectory}}{{creatPathService}}/{{snakeCase sevicePageClass}}";
+    {{#if serviceDirectory}}
+        {{#if creatPathService}}
+import { {{servicePageClass}} } from "src/services/page/{{serviceDirectory}}/{{creatPathService}}/{{snakeCase servicePageClass}}";
+        {{else}}
+import { {{servicePageClass}} } from "src/services/page/{{serviceDirectory}}/{{snakeCase servicePageClass}}";
+        {{/if}}
+    {{else}}
+        {{#if creatPathService}}
+import { {{servicePageClass}} } from "src/services/page/{{creatPathService}}/{{snakeCase servicePageClass}}";
+        {{else}}
+import { {{servicePageClass}} } from "src/services/page/{{snakeCase servicePageClass}}";
+        {{/if}}
+    {{/if}}
 {{else}}
-import { {{sevicePageClass}} } from "src/services/page/{{unixPathCase serviceFile}}";
+import { {{servicePageClass}} } from "src/services/page/{{unixPathCase serviceFile}}";
 {{/if}}
 
-const logger: Logger = Utils.getLogger("{{> applicationName }}.views{{dotCase pageDirectory}}{{packageCase creatPathPage}}.{{snakeCase sevicePageClass}}");
+const logger: Logger = Utils.getLogger("{{> applicationName }}.views{{dotCase pageDirectory}}{{packageCase creatPathPage}}.{{snakeCase servicePageClass}}");
 
 /**
  * {{pageClassDescription}}
  */
-export class {{camelCase pageClass}} extends HornetPage<{{sevicePageClass}}, HornetComponentProps, any> {
+export class {{camelCase pageClass}} extends HornetPage<{{servicePageClass}}, HornetComponentProps, any> {
 
     constructor(props?, context?) {
 
@@ -38,6 +50,7 @@ export class {{camelCase pageClass}} extends HornetPage<{{sevicePageClass}}, Hor
         logger.trace("VIEW {{camelCase pageClass}} render");
 
         return (
+            <div></div>
         );
     }
 
