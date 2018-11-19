@@ -15,7 +15,7 @@ pipeline {
         VERSION_SNAPSHOT="${VERSION_RELEASE}-${BUILD_TIMESTAMP}-${BUILD_NUMBER}"
 
         // Construction
-        HORNETJSBUILDER_VERSION="1.5.4"
+        HORNETJSBUILDER_VERSION="1.6.0"
 
         // Publication
         ARTIFACTORY_URL = "http://artifactory.app.diplomatie.gouv.fr/artifactory-dev"
