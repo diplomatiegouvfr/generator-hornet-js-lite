@@ -123,7 +123,7 @@ module.exports = {
         }],
         dev: {
             dllEntry: {
-                vendor: ["hornet-js-react-components", "hornet-js-components", "hornet-js-utils", "hornet-js-core", "hornet-js-bean"]
+                vendor: ["hornet-js-react-components", "hornet-js-components", "hornet-js-utils", "hornet-js-bean"]
             }
         }
     }

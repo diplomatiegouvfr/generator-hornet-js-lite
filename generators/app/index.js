@@ -248,6 +248,9 @@ module.exports = Generator.extend({
 
         //README.md
         this._copy("README.md", defaultConfig);
+
+        //LICENSE.md
+        this._copy("LICENSE.md", defaultConfig);
     },
 
     _writingTest: function (defaultConfig) {

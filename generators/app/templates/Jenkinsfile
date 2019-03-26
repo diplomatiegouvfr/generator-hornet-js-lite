@@ -48,6 +48,28 @@ pipeline {
             }
         }
 
+        stage("Handle Snaphot version") {
+            when {
+				anyOf {
+	                branch "develop"
+				}
+            }
+            steps {
+                sh '''
+                    bash hbw.sh dependency:set-snapshot --dependencyVersionFix=hornet-js --module=hornet-js-core
+                    bash hbw.sh dependency:set-snapshot --dependencyVersionFix=hornet-themes-intranet --module=hornet-themes-intranet
+                '''
+            }
+            post {
+                success {
+                    echo "[SUCCESS] Success to handle snapshot version"
+                }
+                failure {
+                    echo "[FAILURE] Failed to handle snapshot version"
+                }
+            }
+        }
+
         stage("Initialize") {
             steps {
 				dir("${WORKSPACE}") {
@@ -71,7 +93,7 @@ pipeline {
 
 						if ( BRANCH_NAME.equals("develop") ) {
 							mapEnv["BUILD_VERSION"] = mapEnv["MODULE_VERSION"] + "-" + mapEnv["BUILD_TIMESTAMP"] + "-" + env.BUILD_NUMBER
-						} else {
+						} else if ( BRANCH_NAME.equals("master") ) {
 							mapEnv["BUILD_VERSION"] = mapEnv["MODULE_VERSION"]
 						}
 
@@ -82,7 +104,7 @@ pipeline {
 							mapEnv["PUBLISH_VERSION"] = mapEnv["MODULE_VERSION"] + "-SNAPSHOT"
 							mapEnv["PUBLISH_REPOSITORY"] = mapEnv["REPOSITORY_BASENAME"] + "-snapshot"
                             mapEnv["PUBLISH_REPOSITORY_NPM"] = mapEnv["REPOSITORY_BASENAME"] + "-npm-snapshot"
-						} else {
+						} else if ( BRANCH_NAME.equals("master") ) {
 							mapEnv["PUBLISH_VERSION"] = mapEnv["MODULE_VERSION"]
 							mapEnv["PUBLISH_REPOSITORY"] = mapEnv["REPOSITORY_BASENAME"] + "-release"
                             mapEnv["PUBLISH_REPOSITORY_NPM"] = mapEnv["REPOSITORY_BASENAME"] + "-npm-release"
@@ -91,7 +113,7 @@ pipeline {
 						// Déploiement
                         if ( BRANCH_NAME.equals("trunk") || BRANCH_NAME.equals("develop") ) {
 							mapEnv["DEPLOY_JOB_ID"] = mapEnv["MODULE_GROUP"] + "-" + mapEnv["MODULE_ID"] + "-DEVNG-SNAPSHOT-application-" + mapEnv["MODULE_ID"] + "-scheduled-install"
-						} else {
+						} else if ( BRANCH_NAME.equals("master") ) {
 							mapEnv["DEPLOY_JOB_ID"]  = mapEnv["MODULE_GROUP"] + "-" + mapEnv["MODULE_ID"] + "-DEVNG-RELEASE-application-" + mapEnv["MODULE_ID"] + "-scheduled-install"
 						}
 
