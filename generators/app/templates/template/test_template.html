@@ -8,7 +8,6 @@
     <script lang="javascript">
         let url = window.location.protocol + "//" +  window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-        creatLinkStyle("/<%%=project.static%><%= slugify(theme) %>/css/theme.css", url);
         creatLinkStyle("/<%%=project.static%>css/theme.css", url);
 
 

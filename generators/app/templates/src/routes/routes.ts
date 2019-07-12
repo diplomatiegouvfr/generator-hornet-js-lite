@@ -6,8 +6,8 @@ import { PlanAppliPage } from "src/views/nav/nav-pap-page";
 import { AccessibilitePage } from "src/views/gen/gen-acb-page";
 import { Utils } from "hornet-js-utils";
 import { DeclarationconformitePage } from "src/views/gen/gen-ddc-page";
-import {Logger} from "hornet-js-utils/src/logger";
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.routes.routes");
+import {Logger} from "hornet-js-logger/src/logger";
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.routes.routes");
 import { Injector } from "hornet-js-core/src/inject/injector";
 import { Roles } from "src/utils/roles";
 

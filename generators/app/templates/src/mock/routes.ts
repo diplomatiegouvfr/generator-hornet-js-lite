@@ -1,10 +1,8 @@
-import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
-
+import { Logger } from "hornet-js-logger/src/logger";
 
 import * as _ from "lodash";
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.mock.routes");
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.mock.routes");
 
 
 /**

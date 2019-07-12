@@ -62,7 +62,6 @@
     "httpOnly": true,
     "secure": true
   },
-  "themeName": "<%= slugify(theme) %>",
   "security": {
     "enabled": true,
     "hpp": true,

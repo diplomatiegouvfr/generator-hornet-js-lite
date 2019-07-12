@@ -9,7 +9,6 @@
     "host": "http://localhost/",
     "name": "<%= slugify(appname) %>-service"
   },
-  "themeName": "<%= theme %>",
   "localeI18n": {
     "locale": "fr-FR",
     "lang": "fr"

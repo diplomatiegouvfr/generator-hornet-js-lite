@@ -1,11 +1,10 @@
-import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
+import { Logger } from "hornet-js-logger/src/logger";
 import { ServicePage } from "hornet-js-core/src/services/service-page";
 import { URL_CONTACT } from "src/utils/urls";
 import { ContactService } from "src/services/page/cnt/contact-service-page";
+import { Promise } from "hornet-js-utils/src/promise-api";
 
-
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.services.page.cnt.contact-service-page-impl");
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.services.page.cnt.contact-service-page-impl");
 
 /**
  * Implementation des services pour les contacts

@@ -1,5 +1,5 @@
 import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
+import { Logger } from "hornet-js-logger/src/logger";
 import * as React from "react";
 import { Class } from "hornet-js-utils/src/typescript-utils";
 import { HornetPage, HornetPageProps } from "hornet-js-react-components/src/widget/component/hornet-page";
@@ -17,12 +17,15 @@ import * as ChangeLanguageService from "hornet-js-core/src/services/default/chan
 import { NavigationUtils } from "hornet-js-components/src/utils/navigation-utils";
 import { NotificationSessionFooter } from "hornet-js-react-components/src/widget/notification/notification-session-footer";
 import { MenuAccessibilite } from "hornet-js-react-components/src/widget/navigation/menu-accessibilite";
+import { SvgSprites } from "hornet-js-react-components/src/widget/icon/svg-sprites";
 
+import "hornet-js-react-components/src/widget/sass/gen.scss"
+import "src/views/layouts/sass/_auth.scss";
 
 import * as _ from "lodash";
 import * as classNames from "classnames";
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.views.layouts.hornet-app");
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.views.layouts.hornet-app");
 
 
 
@@ -96,7 +99,7 @@ export class HornetApp extends HornetPage<any, HornetAppProps, any> {
             items={[ { label: "as Admin", action: this.changeUserTo, valueCurrent: "admin", className: "link" },
             { label: "As User", action: this.changeUserTo, valueCurrent: "user", className: "link" }]}
             title={"mock users"}
-            icon="picto-user"
+            srcImg={<SvgSprites icon="account" />}
             className="profil-content"
             id={"dropdown-user-mock" + "-drop"}
             label={"Users"}
@@ -108,7 +111,7 @@ export class HornetApp extends HornetPage<any, HornetAppProps, any> {
             items={[ { label: "as Admin", action: this.changeUserTo, valueCurrent: "admin", className: "link" },
             { label: "As User", action: this.changeUserTo, valueCurrent: "user", className: "link" }]}
             title={"mock users"}
-            icon="picto-user"
+            srcImg={<SvgSprites icon="account" />}
             className="profil-content"
             id={"dropdown-user-banner-mock" + "-drop"}
             label={"Users"}

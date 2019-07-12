@@ -7,7 +7,6 @@
     <script lang="javascript">
         let url = window.location.protocol + "//" +  window.location.host + window.location.pathname.substring(0, window.location.pathname.indexOf("/", 1));
 
-        creatLink("/<%%=project.static%><%= slugify(theme) %>/css/theme.css", url, "text/css", "stylesheet");
         creatLink("/<%%=project.static%>css/theme.css", url, "text/css", "stylesheet");
         creatLink("/<%%=project.static%>img/logoHornet.png", url, "image/png", "icon");
 

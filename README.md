@@ -54,8 +54,6 @@ Le générateur va vous demander plusieurs informations nécessaires à l'initia
 * ` Version de votre projet:` `(1.0.0)` : version du projet (`1.0.0` par défaut).
 * ` Description de votre projet ` : un texte court présentant succintement le projet.
 * ` Version du framework (hornet-js):` `(5.x.x)` : version du framework hornet-js (`5.x.x` par défaut identique à generator-hornet-js).
-* ` Theme de l'application, ex : hornet-themes-intranet (hornet-themes-intranet) ` : theme sous forme de projet et dépendance
-* ` Version du theme de l'application (5.x.x)` : version du projet theme
 
 Le processus d'initialisation vous indique ensuite les fichiers créés :
 

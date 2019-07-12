@@ -1,10 +1,9 @@
 import * as React from "react";
-import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
+import { Logger } from "hornet-js-logger/src/logger";
 import { HornetComponentProps } from "hornet-js-components/src/component/ihornet-component";
 import { HornetComponent } from "hornet-js-react-components/src/widget/component/hornet-component";
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.views.gen.gen-acs-cmp");
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.views.gen.gen-acs-cmp");
 
 export interface AccessibleComponentProps extends HornetComponentProps {
     linkHelpVisible: boolean,

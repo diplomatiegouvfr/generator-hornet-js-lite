@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
+import { Logger } from "hornet-js-logger/src/logger";
 import { HornetPage } from "hornet-js-react-components/src/widget/component/hornet-page";
 import { HornetComponentProps } from "hornet-js-components/src/component/ihornet-component";
 import { NavigationUtils } from "hornet-js-components/src/utils/navigation-utils";
 import * as fs from "fs";
 import * as path from "path";
+import "hornet-js-react-components/src/widget/sass/gen.scss";
 
-const logger: Logger = Utils.getLogger("<%= slugify(appname) %>.views.layouts.hornet-layout");
+const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.views.layouts.hornet-layout");
 
 const styleLoader: any = ".loader-page:before {display: block;position: absolute;content: '';left: -200px;width: 200px;height: 4px;background-color: #00d468;animation: loadingPage 2s linear infinite;}@keyframes loadingPage {from {left: -200px; width: 30%;}50% {width: 30%;}70% {width: 70%;}80% { left: 50%;}95% {left: 120%;}to {left: 100%;}}"
 
@@ -96,7 +97,7 @@ export class HornetLayout extends HornetPage<any, HornetLayoutProps, any> {
                     <link rel="icon" type="image/png" href={this.genUrlStatic(this.state.appLogo)}/>
                     <title>{this.state.applicationTitle}</title>
                     <link rel="stylesheet" type="text/css" href={HornetLayout.genUrlTheme(this.state.fwkTheme)}/>
-                    <link rel="stylesheet" type="text/css" href={this.genUrlStatic(this.state.appTheme)}/>
+                    <link rel="stylesheet" type="text/css" href={this.genUrlStatic("/css/appli.min.css")} />
                 </head>
                 <body>
                 {

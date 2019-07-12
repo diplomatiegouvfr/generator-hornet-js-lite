@@ -3,19 +3,7 @@
   "version": "<%= appversion %>",
   "main": "index.js",
   "description": "<%= appdescription %>",
-  "tsDefinitionDependencies": {
-    "hornet-js-ts-typings": "<%= fmkversion %>",
-    "hornet-js-utils-dts": "<%= fmkversion %>",
-    "hornet-js-database-dts": "<%= fmkversion %>",
-    "hornet-js-bean-dts": "<%= fmkversion %>",
-    "hornet-js-core-dts": "<%= fmkversion %>",
-    "hornet-js-components-dts": "<%= fmkversion %>",
-    "hornet-js-react-components-dts": "<%= fmkversion %>",
-    "hornet-js-passport-dts": "<%= fmkversion %>",
-    "hornet-js-test-dts": "<%= fmkversion %>"
-  },
-  "appDependencies": {
-    "<%= theme %>": "<%= themeversion %>",
+  "dependencies": {
     "hornet-js-components": "<%= fmkversion %>",
     "hornet-js-react-components": "<%= fmkversion %>",
     "hornet-js-database": "<%= fmkversion %>",
@@ -28,25 +16,23 @@
     "passport-local": "1.0.0",
     "sha1": "1.1.1",
     "pg": "6.0.1",
-    "pg-hstore": "2.3.2",
-    "pg-native": "1.10.0",
-    "sqlite3": "3.1.13"
+    "sqlite3": "3.1.13",
+    "source-map-support": "0.5.12",
+    "tslib": "1.9.3"
   },
-  "buildDependencies": {
-  },
-  "testDependencies": {
-    "hornet-js-test": "<%= fmkversion %>"
+  "devDependencies": {
+    "inquirer-directory": "2.1.0",
+    "@types/node": "10.14.10",
+    "inquirer-file": "1.0.0",
+    "@types/react": "16.7.22",
+    "hornet-js-test": "<%= fmkversion %>",
+    "plop": "2.0.0"
   },
   "scripts": {
     "init-dev": "hb install",
     "start": "node index.js",
     "plop": "node ./node_modules/plop"
   },
-  "devDependencies": {
-    "inquirer-directory": "2.1.0",
-    "inquirer-file": "1.0.0",
-    "plop": "2.0.0"
-  },
   "author": "MEAE - Ministère de l'Europe et des Affaires étrangères",
-  "hornetJsBuilder": "1.6.0"
+  "hornetJsBuilder": "2.0.0"
 }

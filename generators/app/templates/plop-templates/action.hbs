@@ -1,6 +1,7 @@
-import { Utils } from "hornet-js-utils";
-import { Logger } from "hornet-js-utils/src/logger";
+import { Logger } from "hornet-js-logger/src/logger";
 import { RouteActionService } from "hornet-js-core/src/routes/abstract-routes";
+import { Promise } from "hornet-js-utils/src/promise-api";
+
 {{#if createServiceClass}}
     {{#if serviceDirectory}}
         {{#if creatPathService}}
@@ -19,7 +20,7 @@ import { {{serviceDataClass}} } from "src/services/data/{{snakeCase serviceDataC
 import { {{serviceDataClass}} } from "src/services/data/{{unixPathCase serviceFile}}";
 {{/if}}
 
-const logger: Logger = Utils.getLogger("{{> applicationName }}.actions{{packageCase actionDirectory}}{{packageCase creatPathAction}}.{{snakeCase actionClass}}");
+const logger: Logger = Logger.getLogger("{{> applicationName }}.actions{{packageCase actionDirectory}}{{packageCase creatPathAction}}.{{snakeCase actionClass}}");
 
 /**
  * {{actionClassDescription}}
