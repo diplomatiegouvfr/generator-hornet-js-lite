@@ -1,7 +1,5 @@
 import { Logger } from "hornet-js-logger/src/logger";
 
-import * as _ from "lodash";
-
 const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.mock.routes");
 
 

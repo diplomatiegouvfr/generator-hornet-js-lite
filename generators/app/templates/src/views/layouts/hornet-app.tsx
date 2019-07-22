@@ -19,10 +19,11 @@ import { NotificationSessionFooter } from "hornet-js-react-components/src/widget
 import { MenuAccessibilite } from "hornet-js-react-components/src/widget/navigation/menu-accessibilite";
 import { SvgSprites } from "hornet-js-react-components/src/widget/icon/svg-sprites";
 
-import "hornet-js-react-components/src/widget/sass/gen.scss"
+import "hornet-js-react-components/src/widget/sass/gen.scss";
 import "src/views/layouts/sass/_auth.scss";
 
-import * as _ from "lodash";
+import concat = require("lodash.concat");
+import cloneDeep = require("lodash.clonedeep");
 import * as classNames from "classnames";
 
 const logger: Logger = Logger.getLogger("<%= slugify(appname) %>.views.layouts.hornet-app");
@@ -81,7 +82,7 @@ export class HornetApp extends HornetPage<any, HornetAppProps, any> {
     render(): JSX.Element {
         logger.trace("VIEW HornetApp render");
 
-        let title = _.concat(this.i18n("header").logoTitle, this.state.applicationTitle).join(" ");
+        let title = concat(this.i18n("header").logoTitle, this.state.applicationTitle).join(" ");
 
         let classes: any = {
             "mode-fullscreen": this.state.modeFullscreen
@@ -246,7 +247,7 @@ export class HornetApp extends HornetPage<any, HornetAppProps, any> {
         this.navigateTo("accueil", {}, () => {
             this.forceUpdate();
             this.menu.forceUpdate();
-            this.menu.setState({ items: this.menu.props.configMenu ? NavigationUtils.getFilteredConfigNavigation(_.cloneDeep(this.menu.props.configMenu), this.user) : NavigationUtils.getFilteredConfigNavigation(NavigationUtils.getConfigMenu(), Utils.getCls("hornet.user")) });
+            this.menu.setState({ items: this.menu.props.configMenu ? NavigationUtils.getFilteredConfigNavigation(cloneDeep(this.menu.props.configMenu), this.user) : NavigationUtils.getFilteredConfigNavigation(NavigationUtils.getConfigMenu(), Utils.getCls("hornet.user")) });
 
         });
     }

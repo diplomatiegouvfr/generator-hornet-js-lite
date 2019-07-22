@@ -8,7 +8,7 @@ import { Request, Application } from "express";
 import * as ReactDOMServer from "react-dom/server";
 import * as passport from "passport";
 import { Strategy } from "passport-local";
-import * as _ from "lodash";
+import  startsWith = require("lodash.startswith");
 import { ConnexionPage } from "src/views/gen/gen-cnx-page";
 import { AbstractHornetMiddleware } from "hornet-js-core/src/middleware/middlewares";
 import { AuthService } from "src/services/data/auth/auth-service";
@@ -64,7 +64,7 @@ export class AuthenticationMiddleware extends AbstractHornetMiddleware {
         let welcomePageUrl = Utils.appSharedProps.get("welcomePageUrl");
 
         function ensureAuthenticated(req: Request, res, next) {
-            if (req.isAuthenticated() || _.startsWith(req.originalUrl, loginUrl)) {
+            if (req.isAuthenticated() || startsWith(req.originalUrl, loginUrl)) {
                 return next();
             }
             req.getSession().setAttribute("previousUrl", Utils.buildContextPath(req.originalUrl));

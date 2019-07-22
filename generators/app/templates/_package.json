@@ -11,28 +11,33 @@
     "hornet-js-core": "<%= fmkversion %>",
     "hornet-js-utils": "<%= fmkversion %>",
     "hornet-js-passport": "<%= fmkversion %>",
+    "lodash.clonedeep": "4.5.0",
+    "lodash.concat": "4.5.0",
+    "lodash.startswith": "4.2.1",
     "connect-flash": "0.1.1",
     "passport": "0.2.1",
     "passport-local": "1.0.0",
     "sha1": "1.1.1",
-    "pg": "6.0.1",
-    "sqlite3": "3.1.13",
+    "pg": "7.11.0",
+    "sequelize": "5.8.9",
     "source-map-support": "0.5.12",
     "tslib": "1.9.3"
   },
   "devDependencies": {
-    "inquirer-directory": "2.1.0",
+    "@types/lodash.clonedeep": "4.5.6",
+    "@types/lodash.concat": "4.5.6",
+    "@types/lodash.startswith": "4.2.6",
     "@types/node": "10.14.10",
-    "inquirer-file": "1.0.0",
     "@types/react": "16.7.22",
     "hornet-js-test": "<%= fmkversion %>",
-    "plop": "2.0.0"
+    "inquirer-directory": "2.1.0",
+    "inquirer-file": "1.0.0",
+    "sqlite3": "4.0.8"
   },
   "scripts": {
     "init-dev": "hb install",
-    "start": "node index.js",
-    "plop": "node ./node_modules/plop"
+    "start": "node index.js"
   },
   "author": "MEAE - Ministère de l'Europe et des Affaires étrangères",
-  "hornetJsBuilder": "2.0.0"
+  "hornetJsBuilder": "2.0.2"
 }
